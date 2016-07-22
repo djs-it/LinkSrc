@@ -1,0 +1,121 @@
+return {
+  version = "1.1",
+  luaversion = "5.1",
+  tiledversion = "v0.16.1-30-ge0d867f",
+  orientation = "orthogonal",
+  renderorder = "right-down",
+  width = 11,
+  height = 12,
+  tilewidth = 70,
+  tileheight = 82,
+  nextobjectid = 1,
+  properties = {},
+  tilesets = {
+    {
+      name = "tiledsets",
+      firstgid = 1,
+      filename = "../../Payload/tiledmap/tiledsets.tsx",
+      tilewidth = 70,
+      tileheight = 82,
+      spacing = 3,
+      margin = 3,
+      image = "../../Payload/tiledmap/tiledsets.png",
+      imagewidth = 529,
+      imageheight = 531,
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      properties = {},
+      terrains = {},
+      tilecount = 42,
+      tiles = {}
+    }
+  },
+  layers = {
+    {
+      type = "tilelayer",
+      name = "base",
+      x = 0,
+      y = 0,
+      width = 11,
+      height = 12,
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      properties = {},
+      encoding = "lua",
+      data = {
+        18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
+        18, 5, 5, 5, 5, 5, 5, 5, 0, 0, 18,
+        18, 0, 5, 5, 5, 5, 5, 5, 5, 0, 18,
+        18, 0, 0, 5, 5, 5, 5, 5, 5, 5, 18,
+        18, 1, 0, 0, 1, 0, 1, 0, 0, 1, 18,
+        18, 0, 1, 1, 1, 2, 1, 1, 1, 0, 18,
+        18, 0, 1, 1, 1, 2, 1, 1, 1, 0, 18,
+        18, 1, 0, 0, 1, 0, 1, 0, 0, 1, 18,
+        18, 4, 4, 4, 4, 4, 4, 4, 0, 0, 18,
+        18, 0, 4, 4, 4, 4, 4, 4, 4, 0, 18,
+        18, 0, 0, 4, 4, 4, 4, 4, 4, 4, 18,
+        18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18
+      }
+    },
+    {
+      type = "tilelayer",
+      name = "magic",
+      x = 0,
+      y = 0,
+      width = 11,
+      height = 12,
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      properties = {},
+      encoding = "lua",
+      data = {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 25, 0, 0, 0, 0, 0, 25, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 26, 0, 0, 0, 0, 0, 26, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      }
+    },
+    {
+      type = "tilelayer",
+      name = "effect",
+      x = 0,
+      y = 0,
+      width = 11,
+      height = 12,
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      properties = {},
+      encoding = "lua",
+      data = {
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 9, 0, 0, 9, 0, 13, 0, 0, 13, 0,
+        0, 0, 10, 11, 0, 0, 0, 11, 10, 0, 0,
+        0, 0, 11, 10, 0, 0, 0, 10, 11, 0, 0,
+        0, 13, 0, 0, 13, 0, 9, 0, 0, 9, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      }
+    }
+  }
+}
