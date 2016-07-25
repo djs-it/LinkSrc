@@ -30,6 +30,7 @@ function GamingBg:initView()
     self.GamingBgBm = GamingBgBm:create(self:getApp(),LAYERS.gaming_bg_bm)
         :addTo(self)
         :move(display.width/2,0)
+        :showView()
         
 end
 

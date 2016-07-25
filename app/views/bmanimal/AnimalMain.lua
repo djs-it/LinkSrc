@@ -8,29 +8,30 @@ function AnimalMain:onCreate()
 
     self.cellx = 172
     self.celly = 182
-    
+
     self.changeCellX = 126
     self.changeCellY = 132
-    
+
     local anmdata = {}
-    
+
     for i=2,16 do
         table.insert(anmdata,i)
     end
     helper.saveSloterData(SLOTER.animal_have,anmdata)
-    
+
     self.have = self:getAnmHave()
-    
-    local anmset = {}
-    anmset[1] = 3
-    anmset[2] = 9
-    helper.saveSloterData(SLOTER.animal_stage,anmset)
-    
+
+    self.stageAnm = {}
+    self.stageAnm[1] = 3
+    self.stageAnm[2] = 9
+    helper.saveSloterData(SLOTER.animal_stage,self.stageAnm)
+
+
     self.mainCell = {}
     self.changeCell = {}
-    
+
     self:initView()
-    
+
 end
 
 function AnimalMain:onClick(path,node,funcName)
@@ -82,6 +83,18 @@ function AnimalMain:onClick(path,node,funcName)
             self:btnCloseChangeClick()
         end
         return btnCallback
+    elseif funcName == "btnDown" then
+        local function btnCallback(node,eventType)
+            print("btnDown")
+            self:btnDownClick()
+        end
+        return btnCallback
+    elseif funcName == "btnUp" then
+        local function btnCallback(node,eventType)
+            print("btnUp")
+            self:btnUpClick()
+        end
+        return btnCallback
     elseif funcName == "btnCloseProperty" then
         local function btnCallback(node,eventType)
             print("btnCloseProperty")
@@ -99,40 +112,24 @@ end
 
 function AnimalMain:initView()
     self:setMainCell()
+    self:setChangeCell()
+
     self.changecsd:hide()
     self.propertycsd:hide()
-    
-    local anmstage = LinkUtil:getStageAnimal()
-    self.stageleft = anmstage[1]
-    self.stageright = anmstage[2]
-    
-    if self.stageleft and self.stageleft ~= 0 then
-        local sp = display.newSprite(string.format("#anm-%s.png",self.stageleft))
-        sp:addTo(self.anmleftcsd)
-    end
-    
-    if self.stageright and self.stageright ~= 0 then
-        local sp = display.newSprite(string.format("#anm-%s.png",self.stageright))
-        sp:addTo(self.anmrightcsd)
-    end
-end
 
-function AnimalMain:showChangeCsd(isLeft)
-    self:setChangeCell()
-    
-    if isLeft then
-        local sp = display.newSprite(string.format("#anm-%s.png",self.stageleft))
-        self.changeId = self.stageleft
-        sp:addTo(self.changestagecsd)
-    else
-        local sp = display.newSprite(string.format("#anm-%s.png",self.stageright))
-        self.changeId = self.stageright
-        sp:addTo(self.changestagecsd)
+    self.stageAnm = LinkUtil:getStageAnimal()
+    self.stageleft = self.stageAnm[1]
+    self.stageright = self.stageAnm[2]
+
+    if self.stageleft and self.stageleft ~= 0 then
+        self.stageLeftAnm = display.newSprite(string.format("#anm-%s.png",self.stageleft))
+        self.stageLeftAnm:addTo(self.anmleftcsd)
     end
-    
-    self.changeCell[self.changeId]:setSelect()
-    self:setChangeDown()
-    self.changecsd:show()
+
+    if self.stageright and self.stageright ~= 0 then
+        self.stageRightAnm = display.newSprite(string.format("#anm-%s.png",self.stageright))
+        self.stageRightAnm:addTo(self.anmrightcsd)
+    end
 end
 
 function AnimalMain:setChangeNo()
@@ -200,12 +197,12 @@ function AnimalMain:setChangeCell()
                 local cell = AnimalCell:create(self:getApp(),"changecell")
                 self.changeCell[self.have[index]] = cell
                 cell:initView(self.have[index],true,false,2)
-                
+
                 local ptid = i%8
                 if ptid == 0 then
                     ptid = 8
                 end
-                
+
                 cell:setScale(self.changeCellX/self.cellx)
                 cell:setAnchorPoint(0.5,0.5)
                 local pt = self:getCellPtById(ptid,2)
@@ -216,6 +213,21 @@ function AnimalMain:setChangeCell()
         self.changeTV:addPage(layout)
     end
     self.changeTV:scrollToPage(0)
+end
+
+----------------------------------------
+--btn>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+function AnimalMain:btnCloseChangeClick()
+    self.changeCell[self.changeId]:setNoSelect()
+    if self.isChangeLeft then
+        self.stageAnm[1] = self.changeId
+    else
+        self.stageAnm[2] = self.changeId
+    end
+    helper.saveSloterData(SLOTER.animal_stage,self.stageAnm)
+    
+    self.changecsd:hide()
+    self.changeId = nil
 end
 
 function AnimalMain:turnMainPage(sign)
@@ -241,16 +253,78 @@ function AnimalMain:turnChangePage(sign)
     self.changeTV:scrollToPage(pageindex)
 end
 
-----------------------------------------
---btn>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-function AnimalMain:btnCloseChangeClick()
-    self.changeCell[self.changeId]:setNoSelect()
-    self.changecsd:hide()
-    self.changeId = nil
+function AnimalMain:showChangeCsd(isLeft)
+    self.changeTV:scrollToPage(0)
+    self.isChangeLeft = isLeft
+    if isLeft then
+        if self.stageleft ~= 0 then
+            self.changeStageAnm = display.newSprite(string.format("#anm-%s.png",self.stageleft))
+            self.changeId = self.stageleft
+            self.changeStageAnm:addTo(self.changestagecsd)
+        end
+    else
+        if self.stageright ~= 0 then
+            self.changeStageAnm = display.newSprite(string.format("#anm-%s.png",self.stageright))
+            self.changeId = self.stageright
+            self.changeStageAnm:addTo(self.changestagecsd)
+        end
+    end
+
+    if self.changeId then
+        self.changeCell[self.changeId]:setSelect()
+        self:setChangeDown()
+    else
+        self:setChangeNo()
+    end
+
+    self.changecsd:show()
+end
+
+function AnimalMain:btnDownClick()
+    self:setChangeUp()
+
+    if self.isChangeLeft then
+        self.stageleft = 0
+        if self.stageLeftAnm then
+            self.stageLeftAnm:removeSelf()
+        end
+        self.stageAnm[1] = 0
+
+    else
+        self.stageright = 0
+        if self.stageRightAnm then
+            self.stageRightAnm:removeSelf()
+        end
+        self.stageAnm[2] = 0
+    end
+end
+
+function AnimalMain:btnUpClick()
+    self:setChangeDown()
+
+    if self.isChangeLeft then
+        self.stageleft = self.changeId
+        if self.stageLeftAnm ~= nil then
+            self.stageLeftAnm:removeSelf()
+        end
+        self.stageLeftAnm = display.newSprite(string.format("#anm-%s.png",self.changeId))
+        self.stageLeftAnm:addTo(self.anmleftcsd)
+        self.stageAnm[1] = self.changeId
+    else
+        self.stageright = self.changeId
+        if self.stageRightAnm ~= nil then
+            self.stageRightAnm:removeSelf()
+        end
+        self.stageRightAnm = display.newSprite(string.format("#anm-%s.png",self.changeId))
+        self.stageRightAnm:addTo(self.anmrightcsd)
+        self.stageAnm[2] = self.changeId
+    end
+
 end
 
 --btn>>>>>>>>>>>>>>>>>>>>>>>>>>>
 ----------------------------------------------
+
 
 ----------------------------------------
 --change界面当前选中id
@@ -260,9 +334,36 @@ function AnimalMain:getChangeId()
 end
 
 function AnimalMain:setChangeId(num)
-    self.changeCell[self.changeId]:setNoSelect()
+    if self.isChangeLeft then
+        if self.stageright == num then
+            self:setChangeNo()
+        elseif self.stageleft == num then
+            self:setChangeDown()
+        else
+            self:setChangeUp()
+        end
+    else
+        if self.stageleft == num then
+            self:setChangeNo()
+        elseif self.stageright == num then
+            self:setChangeDown()
+        else
+            self:setChangeUp()
+        end
+    end
+
+    if self.changeStageAnm then
+        self.changeStageAnm:removeSelf()
+    end
+    self.changeStageAnm = display.newSprite(string.format("#anm-%s.png",num))
+    self.changeStageAnm:addTo(self.changestagecsd)
+
+    if self.changeId then
+        self.changeCell[self.changeId]:setNoSelect()
+    end
     self.changeCell[num]:setSelect()
     self.changeId = num
+
 end
 
 ----------------------------------------

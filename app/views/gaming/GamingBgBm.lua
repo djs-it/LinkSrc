@@ -41,4 +41,8 @@ function GamingBgBm:setBmBtnClear(sign)
     end
 end
 
+function GamingBgBm:showView()
+    LinkUtil:setStageAnm(self,1)
+end
+
 return GamingBgBm

@@ -3,6 +3,7 @@ SingleRandBegin.RESOURCE_FILENAME = "gaming/begin_single_rand"
 
 function SingleRandBegin:onCreate()
     self:get():move(0,0)
+    self:showView()
 end
 
 function SingleRandBegin:onClick(path,node,funcName)
@@ -30,6 +31,10 @@ function SingleRandBegin:btnBeginGameClick()
     AppViews:getView(LAYERS.gaming_other):hideAllView()
     AppViews:getView("MainScene"):addGamingRand(AppViews:getView(LAYERS.single_main):getRandLevel())
     
+end
+
+function SingleRandBegin:showView()
+    LinkUtil:setStageAnm(self,1)
 end
 
 return SingleRandBegin

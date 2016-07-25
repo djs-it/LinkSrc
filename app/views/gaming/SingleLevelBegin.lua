@@ -40,6 +40,7 @@ end
 
 function SingleLevelBegin:showView(levelNum)
     self.levelnum:setString("第"..levelNum.."关")
+    LinkUtil:setStageAnm(self,1)    
 end
 
 

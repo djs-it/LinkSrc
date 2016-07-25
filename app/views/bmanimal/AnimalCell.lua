@@ -55,7 +55,7 @@ end
 function AnimalCell:btnChangeCell()
     local select = AppViews:getView(LAYERS.animal_main):getChangeId()
     
-    if select == self.anmId then
+    if select and select == self.anmId then
         return
     else
         AppViews:getView(LAYERS.animal_main):setChangeId(self.anmId)

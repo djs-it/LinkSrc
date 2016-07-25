@@ -98,5 +98,20 @@ function LinkUtil:getStageAnimal()
     return helper.getSloterData(SLOTER.animal_stage)
 end
 
+function LinkUtil:setStageAnm(node,scalenum)
+    local stageAnm = LinkUtil:getStageAnimal()
+    if stageAnm[1] ~= 0 then
+        local sp = display.newSprite(string.format("#anm-%s.png",stageAnm[1]))
+        sp:setScale(scalenum)
+        sp:addTo(node.stageleftcsd)
+    end
+
+    if stageAnm[2] ~= 0 then
+        local sp = display.newSprite(string.format("#anm-%s.png",stageAnm[2]))
+        sp:setScale(scalenum)
+        sp:addTo(node.stagerightcsd)
+    end
+end
+
 
 return LinkUtil
