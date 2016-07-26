@@ -1,11 +1,11 @@
 local GamingBg = class("GamingBg",cc.load("mvc").ViewBase)
 GamingBg.RESOURCE_FILENAME = "gaming/gaming_bg"
 
-local GamingBgBm = import(".GamingBgBm")
-local GamingBgTop = import(".GamingBgTop")
+--local GamingBgBm = import(".GamingBgBm")
+--local GamingBgTop = import(".GamingBgTop")
 
 function GamingBg:onCreate()
-    self:initView()
+--    self:initView()
 end
 
 function GamingBg:onClick(path,node,funcName)
@@ -22,16 +22,21 @@ function GamingBg:onClick(path,node,funcName)
     end
 end
 
-function GamingBg:initView()
-    self.GamingBgTop = GamingBgTop:create(self:getApp(),LAYERS.gaming_bg_top)
-        :addTo(self)
-        :move(display.width/2,display.height)
-        
-    self.GamingBgBm = GamingBgBm:create(self:getApp(),LAYERS.gaming_bg_bm)
-        :addTo(self)
-        :move(display.width/2,0)
-        :showView()
-        
+--function GamingBg:initView()
+--    
+--    self.GamingBgTop = GamingBgTop:create(self:getApp(),LAYERS.gaming_bg_top)
+--        :addTo(self)
+--        :move(display.width/2,display.height)
+--        
+--    self.GamingBgBm = GamingBgBm:create(self:getApp(),LAYERS.gaming_bg_bm)
+--        :addTo(self)
+--        :move(display.width/2,0)
+--        :showView()
+--end
+
+function GamingBg:showView()
+    AppViews:getView(LAYERS.gaming_other):initGamingBg()
 end
+
 
 return GamingBg

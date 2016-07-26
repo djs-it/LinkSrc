@@ -80,6 +80,7 @@ function GamingPause:initView()
     effectCtrol:addTo(self.slideeffect)
     effectCtrol:registerControlEventHandler(effectChanged,cc.CONTROL_EVENTTYPE_VALUE_CHANGED)
     effectChanged(effectCtrol)
+    self:move(display.width/2,3000)
 end
 
 function GamingPause:hideView()

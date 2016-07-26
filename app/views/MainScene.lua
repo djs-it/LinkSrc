@@ -42,7 +42,7 @@ end
 function MainScene:addGamingLevel(levelNum)
     self.MainRoom:hide()
     local data = LevelManager:getData(levelNum)
-    self.GamingBg:show()
+    self.GamingBg:show():showView()
     AppViews:getView(LAYERS.gaming_bg_top):addGamingTimer(levelNum)
     self.GamingCtrl:show():initGame(data)
 end

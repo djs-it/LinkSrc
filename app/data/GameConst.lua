@@ -255,6 +255,7 @@ LAYERS = {
     gaming_bg_bm = "gaming_bg_bm",
     gaming_pause = "gaming_pause",
     gaming_over = "gaming_over",
+    gaming_wall = "gaming_wall",
 
 }
 

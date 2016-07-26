@@ -25,7 +25,23 @@ function LinkView:initView(data)
         local pos = self:getPositionByPoint(data.dataPoint[index])
 
         local baseType = data.dataBase[index]
-        if baseType ~= 0 then
+        
+        
+        if baseType == (TYPE_OTHER + DATA_TYPE._18) then
+            if LinkUtil:isEqualByPoint(cc.p(0,5),data.dataPoint[index]) then
+                AppViews:getView(LAYERS.gaming_wall):setWallLeft(pos)
+            end
+            if LinkUtil:isEqualByPoint(cc.p(10,5),data.dataPoint[index]) then
+                AppViews:getView(LAYERS.gaming_wall):setWallRight(pos)
+            end
+            if data.dataPoint[index].x == 5 and data.dataPoint[index].y > 5 then
+                AppViews:getView(LAYERS.gaming_wall):setWallTop(pos)
+            end
+            if data.dataPoint[index].x == 5 and data.dataPoint[index].y < 5 then
+                AppViews:getView(LAYERS.gaming_wall):setWallBm(pos)
+            end
+        end
+        if baseType ~= 0 and baseType ~= TYPE_OTHER + DATA_TYPE._18 then
             local zo = self:getZOrderByY(pos.y)
             local block = ElementSprite:create(baseType)
                 :setPosition(pos)

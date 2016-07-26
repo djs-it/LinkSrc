@@ -122,7 +122,8 @@ function LinkModel:getGamingBaseData()
     local basePoint = {}
     for y = 0 ,GRID_HEIGHT-1 do
         for x = 0 , GRID_WIDTH-1 do
-            if self:getBaseTypeByPoint(cc.p(x,y)) ~= 0 then
+            local baseType = self:getBaseTypeByPoint(cc.p(x,y))
+            if  baseType~= 0 and baseType ~= TYPE_OTHER + DATA_TYPE._18 then
                 table.insert(basePoint,cc.p(x,y))
             end
         end
@@ -1152,7 +1153,8 @@ function LinkModel:getPauseData()
     local resultData = {}
     for y = 0 ,GRID_HEIGHT-1 do
         for x = 0 , GRID_WIDTH-1 do
-            if self.elements[y][x]:getBase() ~= DATA_TYPE._0 then
+            local baseType = self.elements[y][x]:getBase()
+            if baseType ~= DATA_TYPE._0 and baseType ~= TYPE_OTHER + DATA_TYPE._18 then
                 table.insert(resultData,cc.p(x,y))
             end
         end

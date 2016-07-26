@@ -214,12 +214,13 @@ function LinkController:showLevelOver()
     if self.cloudTimer then
         self:removeTimer(TIME_CLOUD_NAME)
     end
-
+    
     local starNum,timeStr = AppViews:getView(LAYERS.gaming_bg_top):deleGamingTimer()
     AppViews:getView(LAYERS.gaming_other):showLevelOver(timeStr,starNum)
 end
 
 function LinkController:closeCtl()
+    AppViews:getView(LAYERS.gaming_wall):hideWall()
     local dataing,resultdata = self.model:dealGameDataIng()
     if self.cloudTimer then
         self:removeTimer(TIME_CLOUD_NAME)

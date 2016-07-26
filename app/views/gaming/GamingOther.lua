@@ -5,6 +5,10 @@ local SingleLevelBegin = import(".SingleLevelBegin")
 local SingleRandBegin = import(".SingleRandBegin")
 local GamingPause = import(".GamingPause")
 local GamingLevelOver = import(".GamingLevelOver")
+local GamingWall = import(".GamingWall")
+local GamingBgBm = import(".GamingBgBm")
+local GamingBgTop = import(".GamingBgTop")
+
 
 function GamingOther:onCreate()
     self:initView()
@@ -23,6 +27,21 @@ function GamingOther:initView()
         :move(display.width/2,display.height/2)
         :hide()
         
+    self.GamingWall = GamingWall:create(self:getApp(),LAYERS.gaming_wall)
+        :addTo(self)
+        :move(display.width/2,display.height/2)
+        :hideWall()
+        
+    self.GamingBgTop = GamingBgTop:create(self:getApp(),LAYERS.gaming_bg_top)
+        :addTo(self)
+        :move(display.width/2,display.height)
+        :hide()
+
+    self.GamingBgBm = GamingBgBm:create(self:getApp(),LAYERS.gaming_bg_bm)
+        :addTo(self)
+        :move(display.width/2,0)
+        :hide()
+        
     self.GamingPause = GamingPause:create(self:getApp(),LAYERS.gaming_pause)
         :addTo(self)
         :move(display.width/2,display.height/2)
@@ -32,9 +51,13 @@ function GamingOther:initView()
         :addTo(self)
         :move(display.width/2,display.height/2)
         :hide()
+    
 end
 
 function GamingOther:hideAllView()
+    self.GamingBgBm:hide()
+    self.GamingBgTop:hide()
+--    self.GamingWall:hide()
     self.GamingPause:hideView()
     self.SingleRandBegin:hide()
     self.SingleLevelBegin:hide()
@@ -44,6 +67,8 @@ end
 
 function GamingOther:showPause()
     self:hideAllView()
+    self.GamingBgBm:show()
+    self.GamingBgTop:show()
     
     self.GamingPause:showView()
 end
@@ -76,5 +101,10 @@ function GamingOther:showNextLevelBegin()
     self.SingleLevelBegin:show():showView(self.levelNum)
 end
 
+function GamingOther:initGamingBg()
+    self:hideAllView()
+    self.GamingBgBm:show():showView()
+    self.GamingBgTop:show()
+end
 
 return GamingOther
