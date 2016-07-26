@@ -9,6 +9,7 @@ local GamingOther = import(".gaming.GamingOther")
 
 function MainScene:onCreate()
     self:initMainScene()
+    self:initData()
 end
 
 function MainScene:initMainScene()
@@ -34,6 +35,7 @@ function MainScene:hideAllView()
     self.GamingOther:hideAllView()
     
 end
+
 function MainScene:showMainRoom()
     self:hideAllView()
     self.MainRoom:show()
@@ -50,7 +52,7 @@ end
 function MainScene:addGamingRand(randLevel)
     self.MainRoom:hide()
     local data = LevelManager:getRandGameData(randLevel)
-    self.GamingBg:show()
+    self.GamingBg:show():showView()
     self.GamingCtrl:show():initGame(data)
 end
 
@@ -58,6 +60,26 @@ function MainScene:showNextLevel()
     self:showMainRoom()
     
     self.GamingOther:showNextLevelBegin()
+end
+
+function MainScene:initData()
+    local stageAnm = {}
+    stageAnm[1] = 3
+    stageAnm[2] = 9
+    helper.saveSloterData(SLOTER.animal_stage,stageAnm)
+    
+    local anmdata = {}
+    for i=2,16 do
+        table.insert(anmdata,i)
+    end
+    helper.saveSloterData(SLOTER.animal_have,anmdata)
+    
+    local gem = 100 
+    helper.saveSloterData(SLOTER.user_gem,gem)
+    
+    local gold = 300
+    helper.saveSloterData(SLOTER.user_gold,gold)
+    
 end
 
 return MainScene

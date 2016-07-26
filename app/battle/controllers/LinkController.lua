@@ -17,6 +17,8 @@ end
 --data.base  data.magic data.effect
 --@function [parent=#src.app.battle.controllers.LinkController] initGame
 function LinkController:initGame(data)
+    self.anmStage = LinkUtil:getStageAnimal()
+    
     self.isCanBmClear = false
 
     self.model = LinkModel:create():onCreate()

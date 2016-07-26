@@ -30,6 +30,8 @@ end
 --BTN<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 function SingleLevelBegin:btnBeginGame()
+    local data = LinkUtil:getStageAnimal()
+    dump(data)
     self:hide()
     AppViews:getView("MainScene"):addGamingLevel(AppViews:getView(LAYERS.gaming_other):getLevelNum())
 end

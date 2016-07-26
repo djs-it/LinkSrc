@@ -98,6 +98,9 @@ function LinkUtil:getStageAnimal()
     return helper.getSloterData(SLOTER.animal_stage)
 end
 
+----------------------------------------
+--初始化带宠物的界面
+--
 function LinkUtil:setStageAnm(node,scalenum)
     local stageAnm = LinkUtil:getStageAnimal()
     if stageAnm[1] ~= 0 then
@@ -113,5 +116,22 @@ function LinkUtil:setStageAnm(node,scalenum)
     end
 end
 
+----------------------------------------
+--增加金币
+--
+function LinkUtil:addGold(num)
+    local gold = helper.getSloterData(SLOTER.user_gold)
+    gold = gold + num
+    helper.saveSloterData(SLOTER.user_gold,gold)
+end
+
+----------------------------------------
+--增加钻石
+--
+function LinkUtil:addGem(num)
+    local gem = helper.getSloterData(SLOTER.user_gem)
+    gem = gem + num
+    helper.saveSloterData(SLOTER.user_gem,gem)
+end
 
 return LinkUtil
