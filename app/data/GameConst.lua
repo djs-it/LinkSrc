@@ -263,12 +263,14 @@ LAYERS = {
 SLOTER = {
     user_id = "user_id",
     user_name = "user_name",
+    user_exp = "user_exp",
     user_level = "user_level",
     user_gem = "user_gem",
     user_gold = "user_gold",
 
     single_rand_box = "single_rand_box",
-    single_level = "single_level",
+    single_level_star = "single_level_star",
+    single_level_time = "single_level_time",
     
     animal_have = "animal_have",
     animal_stage = "animal_stage",

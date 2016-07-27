@@ -137,6 +137,9 @@ function LinkUtil:addGold(num)
     helper.saveSloterData(SLOTER.user_gold,gold)
 end
 
+function LinkUtil:getGold()
+    return helper.getSloterData(SLOTER.user_gold)
+end
 ----------------------------------------
 --增加钻石
 --
@@ -146,4 +149,80 @@ function LinkUtil:addGem(num)
     helper.saveSloterData(SLOTER.user_gem,gem)
 end
 
+function LinkUtil:getGem()
+    return helper.getSloterData(SLOTER.user_gem)
+end
+
+----------------------------------------
+--关卡信息处理
+--<<<<<<<<<<<<<<<<<<<<<<<<<
+--
+--function LinkUtil:setLevelStar(starData)
+--    helper.saveSloterData(SLOTER.single_level_star,starData)
+--end
+--
+--function LinkUtil:setLevelStarByLevel(level,starNum)
+--    local data = self:getLevelStar()
+--    if data[level] < starNum then
+--        data[level] = starNum
+--        self:setLevelStar(data)
+--    end
+--end
+--
+--function LinkUtil:getLevelStar()
+--    return helper.getSloterData(SLOTER.single_level_star)
+--end
+--
+--function LinkUtil:getLevelStarByLevel(level)
+--    local data = self:getLevelStar()
+--    return data[level]
+--end
+
+
+function LinkUtil:setLevelTime(timeData)
+    helper.saveSloterData(SLOTER.single_level_time,timeData)
+end
+
+function LinkUtil:setLevelTimeByLevel(level,time)
+    local data = self:getLevelTime()
+    if data[level] > time then
+        data[level] = time
+        self:setLevelTime(data)
+    end
+end
+
+function LinkUtil:getLevelTime()
+    return helper.getSloterData(SLOTER.single_level_time)
+end
+
+function LinkUtil:getLevelTimeByLevel(level)
+    local data = self:getLevelTime()
+    return data[level]
+end
+
+function LinkUtil:getLevelStar()
+    local timeData = self:getLevelTime()
+    local starData = {}
+    for index = 1 ,50 do
+        local star = self:_getStarByTime(timeData[index],index)
+        starData[index] = star
+    end
+    return starData
+end
+
+function LinkUtil:_getStarByTime(time,level)
+    if time > 3660 then
+        return 0
+    elseif time > LEVEL_MSG[level].T[2] then
+        return 1
+    elseif time > LEVEL_MSG[level].T[1] then
+        return 2
+    elseif time > 0 then
+        return 3
+    end
+end
+
+--
+-->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+------------------------------------------
 return LinkUtil
