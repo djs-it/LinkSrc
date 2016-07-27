@@ -18,7 +18,7 @@ end
 --@function [parent=#src.app.battle.controllers.LinkController] initGame
 function LinkController:initGame(data)
     self.anmStage = LinkUtil:getStageAnimal()
-    
+
     self.isCanBmClear = false
 
     self.model = LinkModel:create():onCreate()
@@ -82,6 +82,8 @@ function LinkController:dealGame(lastPoint,newPoint,clearPoint,linePoint,clearGe
 
     local isRunWay,wayTable = self.model:clearBaseByPoint(clearPoint)
     self.view:clearBaseByTable(clearPoint,isRunWay,wayTable)
+    
+    self:checkAnmByClear(clearPoint)
 
     local iceTable = self.model:dealIceByTable(clearPoint)
     if iceTable and #iceTable~= 0 then
@@ -216,7 +218,7 @@ function LinkController:showLevelOver()
     if self.cloudTimer then
         self:removeTimer(TIME_CLOUD_NAME)
     end
-    
+
     local starNum,timeStr = AppViews:getView(LAYERS.gaming_bg_top):deleGamingTimer()
     AppViews:getView(LAYERS.gaming_other):showLevelOver(timeStr,starNum)
 end
@@ -232,5 +234,70 @@ function LinkController:closeCtl()
     self.model:clearModel()
     self.model = nil
 end
+
+---------------------------------
+--处理animal根据消除点
+--1  7  8  13  18  20  21
+--
+function LinkController:checkAnmByClear(clearPoint)
+    if not LinkUtil:isTrue(clearPoint) then
+        return
+    end
+
+    if self:_isOnStageById(0) then
+        return
+    end
+    --每次消除有几率把一对变金币
+    if self:_isOnStageById(1) then
+        if LinkUtil:isDoAnmByNum(50) then
+
+        end
+    end
+    --每次消除有几率提示
+    if self:_isOnStageById(7) then
+        if LinkUtil:isDoAnmByNum(50) then
+            self:showTips()
+        end
+    end
+    --每次消除有几率显示可消块所在区
+    if self:_isOnStageById(8) then
+        if LinkUtil:isDoAnmByNum(50) then
+
+        end
+    end
+    --每次消除有几率自动消除一对
+    if self:_isOnStageById(13) then
+        if LinkUtil:isDoAnmByNum(50) then
+
+        end
+    end
+    --每次消除有几率消除一个障碍类技能(石块,冰冻，冰块)
+    if self:_isOnStageById(18) then
+        if LinkUtil:isDoAnmByNum(50) then
+
+        end
+    end
+    --每次消除有几率消除一个记忆类技能(问号,乌云)
+    if self:_isOnStageById(20) then
+        if LinkUtil:isDoAnmByNum(50) then
+
+        end
+    end
+    --有一定几率抵抗黑白，云，眩晕和西红柿
+    if self:_isOnStageById(21) then
+        if LinkUtil:isDoAnmByNum(50) then
+
+        end
+    end
+end
+
+function LinkController:_isOnStageById(id)
+    if self.anmStage[1] == id or self.anmStage[2] == id then
+        return true
+    else
+        return false
+    end
+end
+
 
 return LinkController

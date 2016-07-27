@@ -117,6 +117,18 @@ function LinkUtil:setStageAnm(node,scalenum)
 end
 
 ----------------------------------------
+--宠物概率
+--
+function LinkUtil:isDoAnmByNum(num)
+    local rd = math.random(100)
+    if rd < num then
+        return true
+    else
+        return false
+    end
+end
+
+----------------------------------------
 --增加金币
 --
 function LinkUtil:addGold(num)

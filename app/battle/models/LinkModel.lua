@@ -80,6 +80,51 @@ function LinkModel:initModel(dataTable)
     return result
 end
 
+---------------------------------------
+--处理触控点
+--@return #type 上一次的点，当前点
+--
+function LinkModel:dealTouchPoint(point)
+
+    local lastPoint = nil
+    local linePoint = {}
+    local clearPoint = {}
+    local clearGem = {}
+    local clearKey = {}
+
+    if self.selectPoint then
+        if not LinkUtil:isEqualByPoint(self.selectPoint,point) then
+            if self:isCanSelect(point) then
+                if self:getBaseTypeByPoint(point) == self:getBaseTypeByPoint(self.selectPoint) then
+                    linePoint = self:getLineByPoint(self.selectPoint,point)
+                    if linePoint then
+                        table.insert(clearPoint,self.selectPoint)
+                        table.insert(clearPoint,point)
+                        self.selectPoint = nil
+                    else
+                        lastPoint = self.selectPoint
+                        self.selectPoint = point
+                    end
+                else
+                    lastPoint = self.selectPoint
+                    self.selectPoint = point
+                end
+            end
+        end
+    else
+        if self:isCanSelect(point) then
+            self.selectPoint = point
+        end
+    end
+
+    if LinkUtil:isTrue(clearPoint) then
+        clearGem = self:checkGem(clearPoint)
+        clearKey = self:checkKey(clearPoint)
+    end
+    local sortLinePoint = self:getSortLine(linePoint)
+    return lastPoint,self.selectPoint,clearPoint,sortLinePoint,clearGem,clearKey
+end
+
 
 ----------------------------
 --获取当前游戏进度table表信息
@@ -435,51 +480,6 @@ function LinkModel:dealBmBtnClear(point)
         table.insert(clearPoint,otherP)
         return clearPoint
     end
-end
-
----------------------------------------
---处理触控点
---@return #type 上一次的点，当前点
---
-function LinkModel:dealTouchPoint(point)
-
-    local lastPoint = nil
-    local linePoint = {}
-    local clearPoint = {}
-    local clearGem = {}
-    local clearKey = {}
-
-    if self.selectPoint then
-        if not LinkUtil:isEqualByPoint(self.selectPoint,point) then
-            if self:isCanSelect(point) then
-                if self:getBaseTypeByPoint(point) == self:getBaseTypeByPoint(self.selectPoint) then
-                    linePoint = self:getLineByPoint(self.selectPoint,point)
-                    if linePoint then
-                        table.insert(clearPoint,self.selectPoint)
-                        table.insert(clearPoint,point)
-                        self.selectPoint = nil
-                    else
-                        lastPoint = self.selectPoint
-                        self.selectPoint = point
-                    end
-                else
-                    lastPoint = self.selectPoint
-                    self.selectPoint = point
-                end
-            end
-        end
-    else
-        if self:isCanSelect(point) then
-            self.selectPoint = point
-        end
-    end
-
-    if LinkUtil:isTrue(clearPoint) then
-        clearGem = self:checkGem(clearPoint)
-        clearKey = self:checkKey(clearPoint)
-    end
-    local sortLinePoint = self:getSortLine(linePoint)
-    return lastPoint,self.selectPoint,clearPoint,sortLinePoint,clearGem,clearKey
 end
 
 -------------------------------------

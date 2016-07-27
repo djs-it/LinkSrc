@@ -69,7 +69,7 @@ function MainScene:initData()
     helper.saveSloterData(SLOTER.animal_stage,stageAnm)
     
     local anmdata = {}
-    for i=2,16 do
+    for i=1,20 do
         table.insert(anmdata,i)
     end
     helper.saveSloterData(SLOTER.animal_have,anmdata)
