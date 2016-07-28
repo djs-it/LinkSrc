@@ -5,6 +5,18 @@ DEBUG = 2
 --######## 应用区域 #######--
 DNP_APP = {
     appName = "OverLap", 
+    version = 1.1,
+    
+    id = {
+        dnp = 10000004,                 -- DONOPO应用内部编号
+        ios = "1087226557",              -- AppStore编码
+        android = "com.donopo.helloKitty",   -- GooglePlay编码
+    },
+
+    storeUrl = {
+        ios     = "itms-apps://itunes.apple.com/app/id%s",                -- iOS 商店地址
+        android = "https://play.google.com/store/apps/details?id=%s",     -- Android商店地址
+    },
     
     slotKey = "D*N@P#L0NGL1FE",         -- 存档加密
     confuseKey = 10240806,              -- 内存混淆
@@ -13,7 +25,12 @@ DNP_APP = {
 }
 
 DNP_GAME = {
---    default_scene = "PlaneScene"
+--    default_scene = "PlaneScene",
+    ios = {
+        leaderboards="Classic;Challenge",
+        achievements= "White Queen;Mary X;Merida;Merida;Sophie;Elsa;Athena;Black Queen;Kamilah;Amphitrite;Nefertiti;Cinderella;Aphrodite;Rapunzel;Kareena;Pocahontas;Belle;Snow;Anna;Grimhilde;Ygritte;Cersei;Bulma;Sansa;Audrey;Marilyn;Scarlett;Wu Zetian;Liv;Halle;Nicole;Zooey;elizabeth I;Mary I;Sonja (Norway);Anne-Marie (Greece);Mary (Denmark);Rania (Jordan);Galadriel;Cleopatra VII;Sirikit (Thailand);Silvia (Sweden);Marie (France);Caroline (Naples);Amalia  (Greece);Isabella I;Catherine (Russia);Louise (Belgium);Eugenie  (French);Joséphine (French);Anna (Russia);Augusta (German);Esther (Persia);Farah (Iran);Louise (Prussia);Frederica (Greece);Paola (Belgium);Victoria;Elizabeth II;Maxima (Netherland);Cixi",
+        separate = ";",
+    },
 }
 
 --######## 广告区域 #######--
@@ -50,6 +67,21 @@ DNP_SHARE = {
 }
 
 
+--######## 日志区域 #######--
+DNP_EVENT = {
+    flurry = {
+        ios     = "967FPWMY789FXZMDKBXV",
+        android = "TB4STFPW85STXPH2Y8YB"
+    }
+}
+DNP_DEBUG = {
+    count = 0
+}
+
+
+--######## 调试区域 #######--
+DNP_USE_FLURRY = true
+
 -- use framework, will disable all deprecated API, false - use legacy API
 CC_USE_FRAMEWORK = true
 
@@ -64,13 +96,10 @@ CC_DESIGN_RESOLUTION = {
     width = 960,
     height = 1440,
     autoscale = "FIXED_WIDTH",
---    autoscale = "FIXED_WIDTH",
     callback = function(framesize)
         local ratio = framesize.width / framesize.height
         if ratio >= 768/1024 then
-            -- iPad 768*1024(1536*2048) is 4:3 screen
             return {autoscale = "FIXED_HEIGHT"}
---            return {autoscale = "FIXED_HEIGHT"}
         end
     end
 }

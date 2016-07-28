@@ -334,7 +334,7 @@ function helper.fromatLO(lostr)
         else
             forstr =forstr .. temstr[v] .. "%d"
         end
-        
+
     end
     return forstr
 end

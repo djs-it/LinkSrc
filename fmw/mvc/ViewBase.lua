@@ -286,7 +286,7 @@ end
 function ViewBase:addTimer(eventName, interval , runCount , func , data)
     local timerId = timer:start(eventName,func,interval, runCount, data)
     self.timers[eventName] = timerId
-    return eventName
+    
 end
 
 

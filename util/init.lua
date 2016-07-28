@@ -22,10 +22,10 @@ THE SOFTWARE.
 
 ]]
 
---json = require("json")
+json = require("json")
 --require("util.Set")
-tagen = require("util.tagen").new()
 
+tagen = require("util.tagen").new()
 timer = require("util.timer")
 crypto = require("util.crypto")
 timer = require("util.timer")
@@ -35,7 +35,6 @@ helper = require("util.helper"):new()
 app = require("util.app").new()
 filter = require("util.filter")
 shader = require("util.shader")
-store = require("util.Store")
 
 --locale = require("util.locale")
 --_ = assert(require("util.locale").loadDefault())

@@ -71,7 +71,7 @@ function LinkController:dealGame(lastPoint,newPoint,clearPoint,linePoint,clearGe
     if LinkUtil:isTrue(linePoint) then
         local pt = self.model:getAllPointByTips(linePoint)
     end
-    
+
     self.view:hideTipsDemo()
     self:hideAllViewDemo()
 
@@ -82,7 +82,7 @@ function LinkController:dealGame(lastPoint,newPoint,clearPoint,linePoint,clearGe
 
     local isRunWay,wayTable = self.model:clearBaseByPoint(clearPoint)
     self.view:clearBaseByTable(clearPoint,isRunWay,wayTable)
-    
+
     local iceTable = self.model:dealIceByTable(clearPoint)
     if iceTable and #iceTable~= 0 then
         self.view:cleanIceByTable(iceTable)
@@ -103,7 +103,7 @@ function LinkController:dealGame(lastPoint,newPoint,clearPoint,linePoint,clearGe
         self:showLevelOver()
         return
     end
-    
+
     self:checkAnmByClear(clearPoint)
 
     local tipsTable = self.model:getLineTwoPoint()
@@ -154,7 +154,8 @@ function LinkController:addCloudListen()
                 self:removeTimer(TIME_CLOUD_NAME)
             end
         end
-        self.cloudTimer =  self:addTimer(TIME_CLOUD_NAME,TIME_CLOUD_NUM,190000,call)
+        self:addTimer(TIME_CLOUD_NAME,TIME_CLOUD_NUM,190000,call)
+        self.cloudTimer =  self.timers[TIME_CLOUD_NAME]
     end
 end
 
@@ -214,10 +215,10 @@ function LinkController:hidePause()
 end
 
 function LinkController:showLevelOver()
---    self.view:clearView()
---    if self.cloudTimer then
---        self:removeTimer(TIME_CLOUD_NAME)
---    end
+    --    self.view:clearView()
+    --    if self.cloudTimer then
+    --        self:removeTimer(TIME_CLOUD_NAME)
+    --    end
 
     self:closeCtl()
     local starNum,timeCount = AppViews:getView(LAYERS.gaming_bg_top):deleGamingTimer()
@@ -226,7 +227,7 @@ end
 
 function LinkController:closeCtl()
     AppViews:getView(LAYERS.gaming_wall):hideWall()
---    local dataing,resultdata = self.model:dealGameDataIng()
+    --    local dataing,resultdata = self.model:dealGameDataIng()
     if self.cloudTimer then
         self:removeTimer(TIME_CLOUD_NAME)
     end
@@ -260,7 +261,6 @@ function LinkController:checkAnmByClear(clearPoint)
         if LinkUtil:isDoAnmByNum(50) then
             local result = self.model:getAnm1()
             self.view:doAnm1(result)
-            
         end
     end
     --每次消除有几率提示
@@ -272,15 +272,17 @@ function LinkController:checkAnmByClear(clearPoint)
     --每次消除有几率显示可消块所在区
     if self:_isOnStageById(8) then
         if LinkUtil:isDoAnmByNum(50) then
-            
+
         end
     end
     --每次消除有几率自动消除一对
     if self:_isOnStageById(13) then
         if LinkUtil:isDoAnmByNum(50) then
             local result = self.model:getAnm13()
-            local isRunWay,wayTable = self.model:clearBaseByPoint(result)
-            self.view:clearBaseByTable(result,isRunWay,wayTable)
+            if result then
+                local isRunWay,wayTable = self.model:clearBaseByPoint(result)
+                self.view:clearBaseByTable(result,isRunWay,wayTable)
+            end
         end
     end
     --每次消除有几率消除一个障碍类技能(石块,冰冻，冰块)

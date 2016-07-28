@@ -205,6 +205,26 @@ function gamer:showAchievementsUI()
     --    dnp.DNPGameCenter:ShowAchievementsUI()
 end
 
+function gamer:inserICloud(rid,rname,rkeys,rvalues)
+    if device.platform == device.PLATFORM.ANDROID then
+    elseif device.platform == device.PLATFORM.IOS then
+        luaoc.callStaticMethod("ICloudManager","insertRecord",{id = rid,name = rname,keys = rkeys,values = rvalues})
+    end
+end
 
+function gamer:selectICloud(rid,rname,rkeys,callback)
+    if device.platform == device.PLATFORM.ANDROID then
+    elseif device.platform == device.PLATFORM.IOS then
+        luaoc.callStaticMethod("ICloudManager","selectRecord",{id = rid,name = rname,keys = rkeys,callback = callback})
+    end
+end
+
+
+function gamer:updateICloud(rid,rname,rkeys,rvalues)
+    if device.platform == device.PLATFORM.ANDROID then
+    elseif device.platform == device.PLATFORM.IOS then
+        luaoc.callStaticMethod("ICloudManager","updateRecord",{id = rid,name = rname,keys = rkeys,values = rvalues})
+    end
+end
 
 return gamer

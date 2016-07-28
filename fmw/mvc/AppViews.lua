@@ -193,6 +193,8 @@ function AppViews:fadeTo(curName,toName,args)
     end
     self:splashMask(aniTime)
     ac.ccDellayToCall(toView,aniTime/2,onComplete)
+    
+    return toView
 end
 
 

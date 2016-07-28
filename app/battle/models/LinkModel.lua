@@ -177,7 +177,7 @@ function LinkModel:getGamingBaseData(isCanSelectIn)
                     table.insert(basePoint,cc.p(x,y))
                 end
             end
-            
+
         end
     end
     return basePoint
@@ -1254,9 +1254,11 @@ end
 --
 function LinkModel:getAnm1()
     local result = self:getAnm13()
-    self.elements[result[1].y][result[1].x]:setBase(DATA_TYPE._80)
-    self.elements[result[2].y][result[2].x]:setBase(DATA_TYPE._80)
-    return result
+    if LinkUtil:isTrue(result) then
+        self.elements[result[1].y][result[1].x]:setBase(DATA_TYPE._80)
+        self.elements[result[2].y][result[2].x]:setBase(DATA_TYPE._80)
+        return result
+    end
 end
 
 --------------------------------
@@ -1264,14 +1266,16 @@ end
 --
 function LinkModel:getAnm13()
     local data = self:getCommonBase()
-    local rd = math.random(#data)
-    local pt1 = data[rd]
-    local pt2 = self:getANTbaseByPoint(pt1)
-    
-    local result = {}
-    table.insert(result,pt1)
-    table.insert(result,pt2)
-    return result
+    if LinkUtil:isTrue(data) then
+        local rd = math.random(#data)
+        local pt1 = data[rd]
+        local pt2 = self:getANTbaseByPoint(pt1)
+
+        local result = {}
+        table.insert(result,pt1)
+        table.insert(result,pt2)
+        return result
+    end
 end
 
 --------------------------------
@@ -1313,7 +1317,7 @@ function LinkModel:getAnm18()
             end
         end
     end
-    
+
     if LinkUtil:isTrue(result) then
         local rd = math.random(#result)
         local rde = result[rd]

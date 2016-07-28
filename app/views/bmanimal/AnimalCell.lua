@@ -46,7 +46,7 @@ end
 
 function AnimalCell:btnAnmCellClick()
     if self.belong == 1 then
-        AppViews:getView(LAYERS.animal_main):showPropertyCsd()
+        AppViews:getView(LAYERS.animal_main):showPropertyCsd(self.anmId)
     elseif self.belong == 2 then
         self:btnChangeCell()
     end

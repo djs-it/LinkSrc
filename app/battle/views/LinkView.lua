@@ -25,8 +25,8 @@ function LinkView:initView(data)
         local pos = self:getPositionByPoint(data.dataPoint[index])
 
         local baseType = data.dataBase[index]
-        
-        
+
+
         if baseType == (TYPE_OTHER + DATA_TYPE._18) then
             if LinkUtil:isEqualByPoint(cc.p(0,5),data.dataPoint[index]) then
                 AppViews:getView(LAYERS.gaming_wall):setWallLeft(pos)
@@ -414,15 +414,17 @@ end
 --宠物技能1  变金币
 --
 function LinkView:doAnm1(result)
-    local tag1 = LinkUtil:getBaseIdByPoint(result[1])
-    local tag2 = LinkUtil:getBaseIdByPoint(result[2])
-    
-    local gsp1 = self.viewLayer:getChildByTag(tag1)
-    local gsp2 = self.viewLayer:getChildByTag(tag2)
-    
-    gsp1.sp:setSpriteFrame("sp-80.png")
-    gsp2.sp:setSpriteFrame("sp-80.png")
-    
+    if LinkUtil:isTrue(result) then
+        local tag1 = LinkUtil:getBaseIdByPoint(result[1])
+        local tag2 = LinkUtil:getBaseIdByPoint(result[2])
+
+        local gsp1 = self.viewLayer:getChildByTag(tag1)
+        local gsp2 = self.viewLayer:getChildByTag(tag2)
+
+        gsp1.sp:setSpriteFrame("sp-80.png")
+        gsp2.sp:setSpriteFrame("sp-80.png")
+    end
+
 end
 
 return LinkView

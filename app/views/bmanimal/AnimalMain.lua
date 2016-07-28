@@ -121,6 +121,9 @@ function AnimalMain:initView()
         self.stageRightAnm:hide()
     end
     
+    self.proStage = display.newSprite(string.format("#anm-%s.png",self.have[1]))
+    self.proStage:addTo(self.prostagecsd)
+    
     self.changeStageAnm = display.newSprite("#anm-0.png")
     self.changeStageAnm:addTo(self.changestagecsd)
 end
@@ -143,7 +146,9 @@ function AnimalMain:setChangeDown()
     self.btnNotCan:hide()
 end
 
-function AnimalMain:showPropertyCsd()
+function AnimalMain:showPropertyCsd(anmId)
+    self.proStage:setSpriteFrame(string.format("anm-%s.png",anmId))
+    self.anmsaycsd:setString(ANM_SAY[anmId])
     self.propertycsd:show()
 end
 
@@ -247,6 +252,7 @@ function AnimalMain:showChangeCsd(isLeft)
     if isLeft then
         if self.stageleft == 0 then
             self.changeStageAnm:setSpriteFrame(string.format("anm-%s.png",self.have[1]))
+            self.changesaycsd:setString(ANM_SAY[self.have[1]])
             self.changeId = self.have[1]
             
             if self.have[1] == self.stageright then
@@ -256,12 +262,14 @@ function AnimalMain:showChangeCsd(isLeft)
             end
         else
             self.changeStageAnm:setSpriteFrame(string.format("anm-%s.png",self.stageleft))
+            self.changesaycsd:setString(ANM_SAY[self.stageleft])
             self.changeId = self.stageleft
             self:setChangeDown()
         end
     else
         if self.stageright == 0 then
             self.changeStageAnm:setSpriteFrame(string.format("anm-%s.png",self.have[1]))
+            self.changesaycsd:setString(ANM_SAY[self.have[1]])
             self.changeId = self.have[1]
             
             if self.have[1] == self.stageleft then
@@ -271,6 +279,7 @@ function AnimalMain:showChangeCsd(isLeft)
             end
         else
             self.changeStageAnm:setSpriteFrame(string.format("anm-%s.png",self.stageright))
+            self.changesaycsd:setString(ANM_SAY[self.stageright])
             self.changeId = self.stageright
             self:setChangeDown()
         end
@@ -344,7 +353,7 @@ function AnimalMain:setChangeId(num)
     end
 
     self.changeStageAnm:setSpriteFrame(string.format("anm-%s.png",num))
-
+    self.changesaycsd:setString(ANM_SAY[num])
     if self.changeId then
         self.changeCell[self.changeId]:setNoSelect()
     end
