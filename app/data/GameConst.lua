@@ -9,7 +9,7 @@ GRID_HEIGHT   = 12
 GRID_BORDER_WIDTH  = 92
 GRID_BORDER_HEIGHT = 110
 
-GAME_BORDER_OFFSETY = display.height/2 -6.3*GRID_BORDER_HEIGHT
+GAME_BORDER_OFFSETY = display.height/2 - 6.3*GRID_BORDER_HEIGHT
 
 
 GAME_ALL_LEVEL = 18
@@ -271,6 +271,7 @@ SLOTER = {
     single_rand_box = "single_rand_box",
     single_level_star = "single_level_star",
     single_level_time = "single_level_time",
+    single_level_now = "single_level_now",
     
     animal_have = "animal_have",
     animal_stage = "animal_stage",

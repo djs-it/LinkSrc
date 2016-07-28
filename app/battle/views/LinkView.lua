@@ -83,7 +83,7 @@ end
 function LinkView:dealBaseIng(baseData)
     if LinkUtil:isTrue(baseData) then
         for index = 1,#baseData do
-            if baseData[index] ~= 0 then
+            if baseData[index] ~= 0 and baseData[index] ~= TYPE_OTHER + DATA_TYPE._18 then
                 local sp = self.viewLayer:getChildByTag(index)
                 sp:removeSelf()
             end
@@ -100,7 +100,7 @@ function LinkView:createBaseIng(gameData)
         local pos = self:getPositionByPoint(gameData.dataPoint[index])
         local baseType = gameData.dataBase[index]
 
-        if baseType ~= 0 then
+        if baseType ~= 0 and baseType ~= TYPE_OTHER + DATA_TYPE._18 then
             local zo = self:getZOrderByY(pos.y)
             local block = ElementSprite:create(baseType)
                 :setPosition(pos)
@@ -383,6 +383,17 @@ end
 function LinkView:clearView()
     self.viewLayer:removeSelf()
     self.viewLayer = nil
+end
+
+-------------------------------
+--宠物技能20  问号  乌云
+--
+function LinkView:doAnm20(pt)
+    if pt then
+        local tag = LinkUtil:getBaseIdByPoint(pt)
+        local sp = self.viewLayer:getChildByTag(tag)
+        sp:removeEffect()
+    end
 end
 
 return LinkView

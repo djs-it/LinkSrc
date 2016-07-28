@@ -222,6 +222,14 @@ function LinkUtil:_getStarByTime(time,level)
     end
 end
 
+function LinkUtil:setLevelNow(level)
+    helper.saveSloterData(SLOTER.single_level_now,level)
+end
+
+function LinkUtil:getLevelNow()
+    return helper.getSloterData(SLOTER.single_level_now)
+end
+
 --
 -->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 ------------------------------------------

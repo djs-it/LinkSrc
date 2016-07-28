@@ -42,6 +42,10 @@ end
 
 function SingleLevelBegin:showView(levelNum)
     self.levelnum:setString("第"..levelNum.."关")
+    local startx2 = LinkUtil:getStrMinTime(LEVEL_MSG[levelNum].T[2])
+    local startx3 = LinkUtil:getStrMinTime(LEVEL_MSG[levelNum].T[1])
+    self.star2csd:setString(startx2)
+    self.star3csd:setString(startx3)
     LinkUtil:setStageAnm(self,1)    
 end
 

@@ -8,8 +8,8 @@ local GamingCtrl = import("app.battle.controllers.LinkController")
 local GamingOther = import(".gaming.GamingOther")
 
 function MainScene:onCreate()
-    self:initMainScene()
     self:initData()
+    self:initMainScene()
 end
 
 function MainScene:initMainScene()
@@ -64,8 +64,8 @@ end
 
 function MainScene:initData()
     local stageAnm = {}
-    stageAnm[1] = 3
-    stageAnm[2] = 9
+    stageAnm[1] = 13
+    stageAnm[2] = 20
     helper.saveSloterData(SLOTER.animal_stage,stageAnm)
 
     local anmdata = {}
@@ -90,6 +90,7 @@ function MainScene:initData()
             table.insert(data,3666)
         end
         LinkUtil:setLevelTime(data)
+        LinkUtil:setLevelNow(1)
     end
 
 end

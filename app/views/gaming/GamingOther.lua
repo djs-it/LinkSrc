@@ -86,10 +86,14 @@ function GamingOther:showRandBegin()
     self.SingleRandBegin:show()
 end
 
-function GamingOther:showLevelOver(useTime,starNum)
+function GamingOther:showLevelOver(timeCount,starNum)
     self:hideAllView()
     
-    self.GamingLevelOver:show():showView(self.levelNum,useTime,starNum)
+    self.GamingLevelOver:show():showView(self.levelNum,timeCount,starNum)
+    
+    LinkUtil:setLevelTimeByLevel(self.levelNum,timeCount)
+    
+    AppViews:getView(LAYERS.single_map):showNextBtn(self.levelNum,starNum)
 end
 
 function GamingOther:getLevelNum()

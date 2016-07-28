@@ -27,9 +27,10 @@ function GamingLevelOver:btnBackClick()
 end
 
 
-function GamingLevelOver:showView(levelNum,useTime,starNum)
+function GamingLevelOver:showView(levelNum,timeCount,starNum)
     self.overtile:setString("第"..levelNum.."关")
-    self.usetime:setString("本关用时:"..useTime)
+    local timeStr = LinkUtil:getStrMinTime(timeCount)
+    self.usetime:setString("本关用时:"..timeStr)
     
     self.star2:show()
     self.star1:show()

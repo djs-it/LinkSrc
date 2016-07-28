@@ -149,28 +149,35 @@ function LinkModel:dealGameDataIng()
 
     self:dealGameBaseIng(resultData.dataBase)
     self:initGameDataIng(resultData)
-    
+
     local tipsTable = self:getLineTwoPoint()
     while not tipsTable do
         self:dealGameBaseIng(resultData.dataBase)
         self:initGameDataIng(resultData)
         tipsTable = self:getLineTwoPoint()
     end
-    
+
     return dataIng,resultData
 end
 
 ----------------------------
 -- 获取游戏base层点数据
 --
-function LinkModel:getGamingBaseData()
+function LinkModel:getGamingBaseData(isCanSelectIn)
     local basePoint = {}
     for y = 0 ,GRID_HEIGHT-1 do
         for x = 0 , GRID_WIDTH-1 do
             local baseType = self:getBaseTypeByPoint(cc.p(x,y))
-            if  baseType~= 0 and baseType ~= TYPE_OTHER + DATA_TYPE._18 then
-                table.insert(basePoint,cc.p(x,y))
+            if isCanSelectIn then
+                if  baseType~= 0 and baseType ~= TYPE_OTHER + DATA_TYPE._18 then
+                    table.insert(basePoint,cc.p(x,y))
+                end
+            else
+                if  baseType~= 0 and baseType ~= TYPE_OTHER + DATA_TYPE._18 and baseType ~= TYPE_OTHER + DATA_TYPE._2 then
+                    table.insert(basePoint,cc.p(x,y))
+                end
             end
+            
         end
     end
     return basePoint
@@ -1204,6 +1211,82 @@ function LinkModel:clearModel()
         for x= 0,GRID_WIDTH-1 do
             self.elements[y][x] = nil
         end
+    end
+end
+
+
+--------------------------------
+--获取基本base类型 1-100
+--
+function LinkModel:getCommonBase()
+    local result = {}
+    for y = 0,GRID_HEIGHT-1 do
+        for x= 0,GRID_WIDTH-1 do
+            local baseType = self.elements[y][x]:getBase()
+            if baseType > 0 and baseType < 100 then
+                table.insert(result,cc.p(x,y))
+            end
+        end
+    end
+    return result
+end
+
+
+--------------------------------
+--获取相同base类型的另一个点 （不一定可以连线上的）
+--
+function LinkModel:getANTbaseByPoint(pt)
+    local baseType = self.elements[pt.y][pt.x]:getBase()
+    for y = 0,GRID_HEIGHT-1 do
+        for x= 0,GRID_WIDTH-1 do
+            local type = self.elements[y][x]:getBase()
+            if type == baseType then
+                if not LinkUtil:isEqualByPoint(pt,cc.p(x,y)) then
+                    return cc.p(x,y)
+                end
+            end
+        end
+    end
+end
+
+--------------------------------
+-- 获取宠物13 （自动消除一对）
+--
+function LinkModel:getAnm13()
+    local data = self:getCommonBase()
+    local rd = math.random(#data)
+    local pt1 = data[rd]
+    local pt2 = self:getANTbaseByPoint(pt1)
+    
+--    self.elements[pt1.y][pt1.x]:setBase(DATA_TYPE._0)
+--    self.elements[pt2.y][pt2.x]:setBase(DATA_TYPE._0)
+    local result = {}
+    table.insert(result,pt1)
+    table.insert(result,pt2)
+    return result
+end
+
+--------------------------------
+-- 获取宠物20 （问号和乌云）
+--
+function LinkModel:getAnm20()
+    local result = {}
+    for y = 0,GRID_HEIGHT-1 do
+        for x= 0,GRID_WIDTH-1 do
+            local effect = self.elements[y][x]:getEffect()
+            if effect == TYPE_OTHER + DATA_TYPE._13 or effect == TYPE_OTHER + DATA_TYPE._9 then
+                table.insert(result,cc.p(x,y))
+            end
+        end
+    end
+
+    if LinkUtil:isTrue(result) then
+        local rd = math.random(#result)
+        local rdp = result[rd]
+        self.elements[rdp.y][rdp.x]:setEffect(DATA_TYPE._0)
+        return rdp
+    else
+        return nil
     end
 end
 

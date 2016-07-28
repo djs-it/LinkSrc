@@ -53,4 +53,10 @@ function LevelBn:setStar(starNum)
     end
 end
 
+function LevelBn:setBtnShow(starNum)
+    self.btnLevel:show()
+    self.btnLevelNo:hide()
+    self:setStar(starNum)
+end
+
 return LevelBn

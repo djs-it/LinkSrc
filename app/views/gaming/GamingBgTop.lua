@@ -62,7 +62,7 @@ end
 function GamingBgTop:deleGamingTimer()
     self:removeTimer(TIME_GAMING_NAME)
     
-    return self.starNum,self.timeStr
+    return self.starNum,self.timeCount
 end
 
 return GamingBgTop
