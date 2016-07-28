@@ -396,4 +396,33 @@ function LinkView:doAnm20(pt)
     end
 end
 
+-------------------------------
+--宠物技能18  障碍物 石块 冰块  冰冻
+--sign 1 石块 2 冰块  3 冰冻
+--
+function LinkView:doAnm18(pt,sign)
+    local tag = LinkUtil:getBaseIdByPoint(pt)
+    local sp = self.viewLayer:getChildByTag(tag)
+    if sign == 1 then
+        sp:removeSelf()
+    elseif sign == 2 then
+        sp:removeEffect()
+    end
+end
+
+-------------------------------
+--宠物技能1  变金币
+--
+function LinkView:doAnm1(result)
+    local tag1 = LinkUtil:getBaseIdByPoint(result[1])
+    local tag2 = LinkUtil:getBaseIdByPoint(result[2])
+    
+    local gsp1 = self.viewLayer:getChildByTag(tag1)
+    local gsp2 = self.viewLayer:getChildByTag(tag2)
+    
+    gsp1.sp:setSpriteFrame("sp-80.png")
+    gsp2.sp:setSpriteFrame("sp-80.png")
+    
+end
+
 return LinkView

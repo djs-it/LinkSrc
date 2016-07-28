@@ -258,7 +258,9 @@ function LinkController:checkAnmByClear(clearPoint)
     --每次消除有几率把一对变金币
     if self:_isOnStageById(1) then
         if LinkUtil:isDoAnmByNum(50) then
-
+            local result = self.model:getAnm1()
+            self.view:doAnm1(result)
+            
         end
     end
     --每次消除有几率提示
@@ -270,12 +272,11 @@ function LinkController:checkAnmByClear(clearPoint)
     --每次消除有几率显示可消块所在区
     if self:_isOnStageById(8) then
         if LinkUtil:isDoAnmByNum(50) then
-
+            
         end
     end
     --每次消除有几率自动消除一对
     if self:_isOnStageById(13) then
-        
         if LinkUtil:isDoAnmByNum(50) then
             local result = self.model:getAnm13()
             local isRunWay,wayTable = self.model:clearBaseByPoint(result)
@@ -285,7 +286,10 @@ function LinkController:checkAnmByClear(clearPoint)
     --每次消除有几率消除一个障碍类技能(石块,冰冻，冰块)
     if self:_isOnStageById(18) then
         if LinkUtil:isDoAnmByNum(50) then
-
+            local pt,sign = self.model:getAnm18()
+            if sign then
+                self.view:doAnm18(pt,sign)
+            end
         end
     end
     --每次消除有几率消除一个记忆类技能(问号,乌云)

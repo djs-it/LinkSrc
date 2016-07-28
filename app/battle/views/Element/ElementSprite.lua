@@ -6,8 +6,8 @@ end)
 --$$$$$$$$$$$$  CTOR   $$$$$$$$$$$$$
 
 function ElementSprite:ctor(type)
-    --    self.isHaveChild = nil
     self.isSelect = false
+    
     self.sp = display.newSprite(string.format("#sp-%s.png",type or 0))
         :addTo(self)
     self.back = display.newSprite(string.format("#sp-118.png"))

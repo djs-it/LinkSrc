@@ -1250,6 +1250,16 @@ function LinkModel:getANTbaseByPoint(pt)
 end
 
 --------------------------------
+-- 宠物1 （一对变金币）
+--
+function LinkModel:getAnm1()
+    local result = self:getAnm13()
+    self.elements[result[1].y][result[1].x]:setBase(DATA_TYPE._80)
+    self.elements[result[2].y][result[2].x]:setBase(DATA_TYPE._80)
+    return result
+end
+
+--------------------------------
 -- 获取宠物13 （自动消除一对）
 --
 function LinkModel:getAnm13()
@@ -1258,8 +1268,6 @@ function LinkModel:getAnm13()
     local pt1 = data[rd]
     local pt2 = self:getANTbaseByPoint(pt1)
     
---    self.elements[pt1.y][pt1.x]:setBase(DATA_TYPE._0)
---    self.elements[pt2.y][pt2.x]:setBase(DATA_TYPE._0)
     local result = {}
     table.insert(result,pt1)
     table.insert(result,pt2)
@@ -1287,6 +1295,35 @@ function LinkModel:getAnm20()
         return rdp
     else
         return nil
+    end
+end
+
+--------------------------------
+-- 获取宠物18 （障碍类）石块  冰块  冰冻
+--return 1 石块 2 冰块
+--
+function LinkModel:getAnm18()
+    local result = {}
+    for y = 0,GRID_HEIGHT-1 do
+        for x= 0,GRID_WIDTH-1 do
+            local effect = self.elements[y][x]:getEffect()
+            local base = self.elements[y][x]:getBase()
+            if base == TYPE_OTHER + DATA_TYPE._2 or effect == TYPE_OTHER + DATA_TYPE._8 then
+                table.insert(result,cc.p(x,y))
+            end
+        end
+    end
+    
+    if LinkUtil:isTrue(result) then
+        local rd = math.random(#result)
+        local rde = result[rd]
+        if self.elements[rde.y][rde.x]:getBase() == TYPE_OTHER + DATA_TYPE._2 then
+            self.elements[rde.y][rde.x]:setBase(DATA_TYPE._0)
+            return rde,1
+        elseif self.elements[rde.y][rde.x]:getEffect() == TYPE_OTHER + DATA_TYPE._8 then
+            self.elements[rde.y][rde.x]:setEffect(DATA_TYPE._0)
+            return rde,2
+        end
     end
 end
 
