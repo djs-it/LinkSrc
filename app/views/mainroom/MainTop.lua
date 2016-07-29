@@ -1,6 +1,8 @@
 local MainTop = class("MainTop",cc.load("mvc").ViewBase)
 MainTop.RESOURCE_FILENAME = "mainroom/main_top"
 
+local AnmHead = import("..common.AnmHead")
+
 function MainTop:onCreate()
     self:get():move(0,0)
     self:initView()
@@ -43,6 +45,9 @@ function MainTop:initView()
     self.leaveltxt:setString(levelNum)
     self.goldtxt:setString(goldNum)
     self.gemtxt:setString(gemNum)
+    
+    self.head = AnmHead:create(self:getApp(),"head")
+        :addTo(self.anmheadcsd)
 end
 
 return MainTop
