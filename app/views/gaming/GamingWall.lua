@@ -45,14 +45,14 @@ end
 function GamingWall:setWallTop(pos)
     self:show()
     self.walltop:show()
-    local np = cc.p(pos.x,pos.y-110)
+    local np = cc.p(pos.x,pos.y)
     self.walltop:setPosition(np)
 end
 
 function GamingWall:setWallBm(pos)
     self:show()
     self.wallbottom:show()
-    local np = cc.p(pos.x,pos.y-110)
+    local np = cc.p(pos.x,pos.y)
     self.wallbottom:setPosition(np)
 end
 

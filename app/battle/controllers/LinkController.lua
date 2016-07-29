@@ -18,7 +18,7 @@ end
 --@function [parent=#src.app.battle.controllers.LinkController] initGame
 function LinkController:initGame(data)
     self.anmStage = LinkUtil:getStageAnimal()
-    
+
     self.level = AppViews:getView(LAYERS.gaming_other):getLevelNum()
     self.delNum = 0
 
@@ -65,6 +65,16 @@ function LinkController:touch(event)
 
 end
 
+function LinkController:doClearByPoint(clearPoint)
+    if LinkUtil:isTrue(clearPoint) then
+        local isRunWay,wayTable = self.model:clearBaseByPoint(clearPoint)
+        self.view:clearBaseByTable(clearPoint,isRunWay,wayTable)
+        self.delNum = self.delNum +2
+        print("self.delNum === doClearByPoint==="..self.delNum)
+        self:checkBoss()
+    end
+end
+
 
 -----------------------------------------
 --处理游戏逻辑
@@ -73,11 +83,6 @@ function LinkController:dealGame(lastPoint,newPoint,clearPoint,linePoint,clearGe
 
     if LinkUtil:isTrue(linePoint) then
         local pt = self.model:getAllPointByTips(linePoint)
-    end
-    
-    if LinkUtil:isTrue(clearPoint) then
-        self.delNum = self.delNum + 2
-        print("dealGame ===="..self.delNum)
     end
 
     self.view:hideTipsDemo()
@@ -88,8 +93,9 @@ function LinkController:dealGame(lastPoint,newPoint,clearPoint,linePoint,clearGe
     local mark,pointLast,pointNew = self.model:dealTurning(lastPoint,newPoint)
     self.view:dealTurning(mark,pointLast,pointNew)
 
-    local isRunWay,wayTable = self.model:clearBaseByPoint(clearPoint)
-    self.view:clearBaseByTable(clearPoint,isRunWay,wayTable)
+    self:doClearByPoint(clearPoint)
+    --    local isRunWay,wayTable = self.model:clearBaseByPoint(clearPoint)
+    --    self.view:clearBaseByTable(clearPoint,isRunWay,wayTable)
 
     local iceTable = self.model:dealIceByTable(clearPoint)
     if iceTable and #iceTable~= 0 then
@@ -125,11 +131,10 @@ end
 
 function LinkController:dealBmBtnClear(clearPoint)
     if LinkUtil:isTrue(clearPoint) then
-        self.delNum = self.delNum + 2
-        print("dealBmBtnClear"..self.delNum)
-        
-        local isRunWay,wayTable = self.model:clearBaseByPoint(clearPoint)
-        self.view:clearBaseByTable(clearPoint,isRunWay,wayTable)
+
+        self:doClearByPoint(clearPoint)
+        --        local isRunWay,wayTable = self.model:clearBaseByPoint(clearPoint)
+        --        self.view:clearBaseByTable(clearPoint,isRunWay,wayTable)
 
         local iceTable = self.model:dealIceByTable(clearPoint)
         if iceTable and #iceTable~= 0 then
@@ -225,10 +230,6 @@ function LinkController:hidePause()
 end
 
 function LinkController:showLevelOver()
-    --    self.view:clearView()
-    --    if self.cloudTimer then
-    --        self:removeTimer(TIME_CLOUD_NAME)
-    --    end
 
     self:closeCtl()
     local starNum,timeCount = AppViews:getView(LAYERS.gaming_bg_top):deleGamingTimer()
@@ -237,7 +238,6 @@ end
 
 function LinkController:closeCtl()
     AppViews:getView(LAYERS.gaming_wall):hideWall()
-    --    local dataing,resultdata = self.model:dealGameDataIng()
     if self.cloudTimer then
         self:removeTimer(TIME_CLOUD_NAME)
     end
@@ -289,10 +289,9 @@ function LinkController:checkAnmByClear(clearPoint)
         if LinkUtil:isDoAnmByNum(50) then
             local result = self.model:getAnm13()
             if result then
-                local isRunWay,wayTable = self.model:clearBaseByPoint(result)
-                self.view:clearBaseByTable(result,isRunWay,wayTable)
-                self.delNum = self.delNum
-                print("checkAnmByClear"..self.delNum)
+                self:doClearByPoint(result)
+                --                local isRunWay,wayTable = self.model:clearBaseByPoint(result)
+                --                self.view:clearBaseByTable(result,isRunWay,wayTable)
             end
         end
     end
@@ -330,5 +329,28 @@ function LinkController:_isOnStageById(id)
     end
 end
 
+-------------------------------------------------
+--检测boss关卡
+--
+function LinkController:checkBoss()
+    if self.level then
+        if self.level%5 == 0 then
+            local bossId = self.level/5
+            if bossId == 1 then
+            
+            elseif bossId == 2 then
+            elseif bossId == 3 then
+            elseif bossId == 4 then
+            elseif bossId == 5 then
+            elseif bossId == 6 then
+            elseif bossId == 7 then
+            elseif bossId == 8 then
+            elseif bossId == 9 then
+            elseif bossId == 10 then
+            
+            end
+        end
+    end
+end
 
 return LinkController

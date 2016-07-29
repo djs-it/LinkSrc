@@ -129,9 +129,6 @@ function LinkUtil:setStageAnm(node,scalenum)
     end
 end
 
-function LinkUtil:createAnmShade()
-
-end
 
 ----------------------------------------
 --宠物概率
