@@ -9,6 +9,8 @@ local SingleMap = import("..bmsingle.SingleMain")
 local RoomMain = import("..bmroom.RoomMain")
 local AnimalMain = import("..bmanimal.AnimalMain")
 
+local AnmHead = import("..common.AnmHead")
+
 function MainRoom:onCreate()
     self:initView()
 end
@@ -61,6 +63,10 @@ function MainRoom:initView()
         :addTo(self)
         :move(display.width/2,0)
         :hide()
+        
+    self.AnmHead = AnmHead:create(self:getApp(),"anmhead")
+        :addTo(self)
+        :move(display.width/2,display.height/2)
    
 end
 

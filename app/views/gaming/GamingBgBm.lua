@@ -3,6 +3,7 @@ GamingBgBm.RESOURCE_FILENAME = "gaming/gaming_bm"
 
 function GamingBgBm:onCreate()
     self:get():move(0,0)
+    self:initView()
 end
 
 function GamingBgBm:onClick(path,node,funcName)
@@ -41,7 +42,12 @@ function GamingBgBm:setBmBtnClear(sign)
     end
 end
 
+function GamingBgBm:initView()
+   LinkUtil:initStageAnm(self)
+end
+
 function GamingBgBm:showView()
+    
     LinkUtil:setStageAnm(self,1)
 end
 

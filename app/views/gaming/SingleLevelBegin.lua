@@ -3,6 +3,7 @@ SingleLevelBegin.RESOURCE_FILENAME = "gaming/begin_single_level"
 
 function SingleLevelBegin:onCreate()
     self:get():move(0,0)
+    LinkUtil:initStageAnm(self)
 end
 
 function SingleLevelBegin:onClick(path,node,funcName)

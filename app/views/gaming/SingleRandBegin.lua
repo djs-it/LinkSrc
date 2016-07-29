@@ -3,7 +3,7 @@ SingleRandBegin.RESOURCE_FILENAME = "gaming/begin_single_rand"
 
 function SingleRandBegin:onCreate()
     self:get():move(0,0)
-    self:showView()
+    LinkUtil:initStageAnm(self)
 end
 
 function SingleRandBegin:onClick(path,node,funcName)

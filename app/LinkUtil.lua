@@ -100,21 +100,57 @@ end
 
 ----------------------------------------
 --初始化带宠物的界面
---
-function LinkUtil:setStageAnm(node,scalenum)
+----
+
+function LinkUtil:initStageAnm(node)
     local stageAnm = LinkUtil:getStageAnimal()
     if stageAnm[1] ~= 0 then
-        local sp = display.newSprite(string.format("#anm-%s.png",stageAnm[1]))
-        sp:setScale(scalenum)
-        sp:addTo(node.stageleftcsd)
+        node.anmleft = display.newSprite(string.format("#anm-%s.png",stageAnm[1]))
+        node.anmleft:addTo(node.stageleftcsd)
     end
 
     if stageAnm[2] ~= 0 then
-        local sp = display.newSprite(string.format("#anm-%s.png",stageAnm[2]))
-        sp:setScale(scalenum)
-        sp:addTo(node.stagerightcsd)
+        node.anmright = display.newSprite(string.format("#anm-%s.png",stageAnm[2]))
+        node.anmright:addTo(node.stagerightcsd)
     end
 end
+
+
+function LinkUtil:setStageAnm(node,scalenum)
+    local stageAnm = LinkUtil:getStageAnimal()
+    if stageAnm[1] ~= 0 then
+        node.anmleft:setSpriteFrame(string.format("anm-%s.png",stageAnm[1])) 
+        node.anmleft:setScale(scalenum)
+    end
+
+    if stageAnm[2] ~= 0 then
+        node.anmright:setSpriteFrame(string.format("anm-%s.png",stageAnm[2])) 
+        node.anmright:setScale(scalenum)
+    end
+end
+
+function LinkUtil:createAnmShade()
+
+end
+
+-- kitty:setSkin(QueenUtil.formatSkin(skin or 1))
+--    kitty:setSlotsToSetupPose()
+--    local clip = cc.ClippingNode:create()
+--    clip:setInverted(false)
+--    clip:addChild(kitty)
+--    local drawNode = cc.DrawNode:create()
+--    local points = {}
+--    local rad    = 150
+--    local angle = 2* math.pi/100
+--    local pcount = 100
+--    for i=1, pcount do
+--        points[i] = cc.p(rad*math.cos(angle*i),rad*math.sin(angle*i))
+--    end
+--    drawNode:drawPolygon(points,pcount, cc.c4f(0, 1, 0, 0), 0, cc.c4f(0, 1, 0, 0))
+--    clip:setStencil(drawNode)
+--
+--    clip:setScale(1.6)
+
 
 ----------------------------------------
 --宠物概率
@@ -152,31 +188,6 @@ end
 function LinkUtil:getGem()
     return helper.getSloterData(SLOTER.user_gem)
 end
-
-----------------------------------------
---关卡信息处理
---<<<<<<<<<<<<<<<<<<<<<<<<<
---
---function LinkUtil:setLevelStar(starData)
---    helper.saveSloterData(SLOTER.single_level_star,starData)
---end
---
---function LinkUtil:setLevelStarByLevel(level,starNum)
---    local data = self:getLevelStar()
---    if data[level] < starNum then
---        data[level] = starNum
---        self:setLevelStar(data)
---    end
---end
---
---function LinkUtil:getLevelStar()
---    return helper.getSloterData(SLOTER.single_level_star)
---end
---
---function LinkUtil:getLevelStarByLevel(level)
---    local data = self:getLevelStar()
---    return data[level]
---end
 
 
 function LinkUtil:setLevelTime(timeData)
