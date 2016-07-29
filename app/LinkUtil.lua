@@ -133,25 +133,6 @@ function LinkUtil:createAnmShade()
 
 end
 
--- kitty:setSkin(QueenUtil.formatSkin(skin or 1))
---    kitty:setSlotsToSetupPose()
---    local clip = cc.ClippingNode:create()
---    clip:setInverted(false)
---    clip:addChild(kitty)
---    local drawNode = cc.DrawNode:create()
---    local points = {}
---    local rad    = 150
---    local angle = 2* math.pi/100
---    local pcount = 100
---    for i=1, pcount do
---        points[i] = cc.p(rad*math.cos(angle*i),rad*math.sin(angle*i))
---    end
---    drawNode:drawPolygon(points,pcount, cc.c4f(0, 1, 0, 0), 0, cc.c4f(0, 1, 0, 0))
---    clip:setStencil(drawNode)
---
---    clip:setScale(1.6)
-
-
 ----------------------------------------
 --宠物概率
 --

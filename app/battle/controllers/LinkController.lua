@@ -18,6 +18,9 @@ end
 --@function [parent=#src.app.battle.controllers.LinkController] initGame
 function LinkController:initGame(data)
     self.anmStage = LinkUtil:getStageAnimal()
+    
+    self.level = AppViews:getView(LAYERS.gaming_other):getLevelNum()
+    self.delNum = 0
 
     self.isCanBmClear = false
 
@@ -71,6 +74,11 @@ function LinkController:dealGame(lastPoint,newPoint,clearPoint,linePoint,clearGe
     if LinkUtil:isTrue(linePoint) then
         local pt = self.model:getAllPointByTips(linePoint)
     end
+    
+    if LinkUtil:isTrue(clearPoint) then
+        self.delNum = self.delNum + 2
+        print("dealGame ===="..self.delNum)
+    end
 
     self.view:hideTipsDemo()
     self:hideAllViewDemo()
@@ -117,7 +125,9 @@ end
 
 function LinkController:dealBmBtnClear(clearPoint)
     if LinkUtil:isTrue(clearPoint) then
-
+        self.delNum = self.delNum + 2
+        print("dealBmBtnClear"..self.delNum)
+        
         local isRunWay,wayTable = self.model:clearBaseByPoint(clearPoint)
         self.view:clearBaseByTable(clearPoint,isRunWay,wayTable)
 
@@ -246,7 +256,6 @@ function LinkController:checkAnmByClear(clearPoint)
         return
     end
 
-
     local baseData = self.model:getGamingBaseData(false)
     if #baseData <5 then
         return
@@ -282,6 +291,8 @@ function LinkController:checkAnmByClear(clearPoint)
             if result then
                 local isRunWay,wayTable = self.model:clearBaseByPoint(result)
                 self.view:clearBaseByTable(result,isRunWay,wayTable)
+                self.delNum = self.delNum
+                print("checkAnmByClear"..self.delNum)
             end
         end
     end

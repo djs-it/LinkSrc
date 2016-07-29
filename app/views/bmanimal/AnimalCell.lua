@@ -1,6 +1,8 @@
 local AnimalCell = class("AnimalCell",cc.load("mvc").ViewBase)
 AnimalCell.RESOURCE_FILENAME = "bmanimal/animal_cell"
 
+local AnmHead = import("..common.AnmHead")
+
 function AnimalCell:onCreate()
     self:get():move(0,0)
 end
@@ -26,7 +28,21 @@ end
 function AnimalCell:initView(anmId,isHave,isSelect,num)
     self.anmId = anmId
     local anmSp = display.newSprite(string.format("#anm-%s.png",anmId))
-    anmSp:addTo(self.animalcsd)
+    self.clip = cc.ClippingNode:create()
+    self.clip:setInverted(false)
+    anmSp:addTo(self.clip)
+    local drawNode = cc.DrawNode:create()
+    local points = {}
+    local rad = 75
+    local angle = 2*math.pi/100
+    local pcount = 100
+    for i=1,pcount do
+        points[i] = cc.p(rad*math.cos(angle*i),rad*math.sin(angle*i))
+    end
+    drawNode:drawPolygon(points,pcount,cc.c4f(0,1,0,0),0,cc.c4f(0,1,0,0))
+    self.clip:setStencil(drawNode)
+    
+    self.clip:addTo(self.animalcsd)
 
     self.isHave =isHave
     if isHave then
