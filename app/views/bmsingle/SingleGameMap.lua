@@ -2,6 +2,7 @@ local SingleGameMap = class("SingleGameMap",cc.load("mvc").ViewBase)
 SingleGameMap.RESOURCE_FILENAME = "bmsingle.map_game"
 
 local LevelBn = import("..common.LevelBn")
+local BossBn = import("..common.BossBn")
 
 function SingleGameMap:onCreate()
     self:get():move(0,0)
@@ -30,7 +31,12 @@ function SingleGameMap:initView()
     print("======levelnow"..levelNow)
     
     for i = 1 , 50 do
-        self["bn"..i] = LevelBn:create(self:getApp(),"bn")
+        if i%5 == 0 then
+            self["bn"..i] = BossBn:create(self:getApp(),"boss")
+        else
+            self["bn"..i] = LevelBn:create(self:getApp(),"bn")
+        end
+        
         local star = starData[i]
         local sign
         local sign = true

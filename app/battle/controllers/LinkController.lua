@@ -351,9 +351,23 @@ function LinkController:checkBoss()
             elseif bossId == 3 then
             elseif bossId == 4 then
             elseif bossId == 5 then
+                if self.delNum == LEVEL_BOSS[5].T[1] then
+                    local result = self.model:getBoss5(LEVEL_BOSS[5].N[1])
+                    self.view:doBoss5(result)
+                elseif self.delNum == LEVEL_BOSS[5].T[2] then
+                    local result = self.model:getBoss5(LEVEL_BOSS[5].N[2])
+                    self.view:doBoss5(result)
+                end
             elseif bossId == 6 then
             elseif bossId == 7 then
             elseif bossId == 8 then
+                if self.delNum == LEVEL_BOSS[8].T[1] then
+                    local result = self.model:getBoss8(LEVEL_BOSS[8].N[1])
+                    self.view:doBoss8(result)
+                elseif self.delNum == LEVEL_BOSS[8].T[2] then
+                    local result = self.model:getBoss8(LEVEL_BOSS[8].N[2])
+                    self.view:doBoss8(result)
+                end
             elseif bossId == 9 then
             elseif bossId == 10 then
             

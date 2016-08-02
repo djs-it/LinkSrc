@@ -1401,4 +1401,54 @@ function LinkModel:getBoss2(num)
     return result
 end
 
+function LinkModel:getBoss5(num)
+    local data = {}
+    for y = 1,GRID_HEIGHT-2 do
+        for x= 1,GRID_WIDTH-2 do
+            local baseType = self.elements[y][x]:getBase()
+            if baseType > 0 and baseType < 100 then
+                if self.elements[y][x]:getEffect() == 0 then
+                    table.insert(data,cc.p(x,y))
+                end
+            end
+        end
+    end
+    
+    local result = {}
+    local lth = #data
+    for i = 1,num do
+        local sign = math.random(lth)
+        table.insert(result,data[sign])
+        self.elements[data[sign].y][data[sign].x]:setEffect(TYPE_OTHER + DATA_TYPE._9)
+        data[sign] = data[lth]
+        lth = lth - 1
+    end
+    return result
+end
+
+function LinkModel:getBoss8(num)
+    local data = {}
+    for y = 1,GRID_HEIGHT-2 do
+        for x = 1 , GRID_WIDTH-2 do
+            local baseType = self.elements[y][x]:getBase()
+            if baseType >0 and baseType < 100 then
+                if self.elements[y][x]:getEffect() == 0 then
+                    table.insert(data,cc.p(x,y))
+                end
+            end
+        end
+    end
+    
+    local result = {}
+    local lth = #data
+    for i = 1,num do
+        local sign = math.random(lth)
+        table.insert(result,data[sign])
+        self.elements[data[sign].y][data[sign].x]:setEffect(TYPE_OTHER + DATA_TYPE._13)
+        data[sign] = data[lth]
+        lth = lth - 1
+    end
+    return result
+end
+
 return LinkModel

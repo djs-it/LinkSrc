@@ -20,7 +20,6 @@ function ElementSprite:ctor(type)
 end
 
 function ElementSprite:addTurn()
-
     if not self.turn then
         self.turn = display.newSprite("#sp-118.png")
             :addTo(self)
