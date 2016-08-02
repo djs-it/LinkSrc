@@ -28,6 +28,8 @@ end
 function AnimalCell:initView(anmId,isHave,isSelect,num)
     self.anmId = anmId
     local anmSp = display.newSprite(string.format("#anm-%s.png",anmId))
+    anmSp:setScale(0.8)
+    anmSp:move(0,-15)
     self.clip = cc.ClippingNode:create()
     self.clip:setInverted(false)
     anmSp:addTo(self.clip)

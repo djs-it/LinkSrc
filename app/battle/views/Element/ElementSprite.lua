@@ -29,7 +29,6 @@ end
 
 function ElementSprite:removeTurn()
     if self.turn then
-        print("=====================================")
         self.turn:removeSelf()
         self.turn = nil
     end
