@@ -64,7 +64,7 @@ end
 
 function MainScene:initData()
     local stageAnm = {}
-    stageAnm[1] = 0
+    stageAnm[1] = 2
     stageAnm[2] = 20
     helper.saveSloterData(SLOTER.animal_stage,stageAnm)
 

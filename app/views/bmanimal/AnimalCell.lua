@@ -17,6 +17,7 @@ function AnimalCell:onClick(path,node,funcName)
     else
         local function btnCallback(node,eventType)
             print("btnAnmCell:nnnnnnnn")
+            
         end
         return btnCallback
     end

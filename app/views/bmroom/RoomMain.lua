@@ -40,6 +40,7 @@ end
 
 function RoomMain:initView()
     self.roomtile:setString("别墅一层")
+--    self.roomtile:setString("别墅一层")
     self.btnFloorOne:show()
     self.btnFloorTwo:hide()
 
@@ -50,6 +51,7 @@ end
 function RoomMain:btnFloorClick(num)
     if num == 1 then
         self.roomtile:setString("别墅二层")
+--        self.roomtile:setString("别墅二层")
         self.btnFloorOne:hide()
         self.btnFloorTwo:show()
 

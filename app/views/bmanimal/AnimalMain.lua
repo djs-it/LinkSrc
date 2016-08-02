@@ -109,6 +109,8 @@ function AnimalMain:initView()
     self.stageright = self.stageAnm[2]
 
     self.stageLeftAnm = display.newSprite(string.format("#anm-%s.png",self.stageleft))
+    self.stageLeftAnm:setAnchorPoint(0.5,0)
+    self.stageLeftAnm:setScale(1)
     self.stageLeftAnm:addTo(self.anmleftcsd)
 
     if self.stageleft == 0 then
@@ -116,15 +118,21 @@ function AnimalMain:initView()
     end
 
     self.stageRightAnm = display.newSprite(string.format("#anm-%s.png",self.stageright))
+    self.stageRightAnm:setAnchorPoint(0.5,0)
+    self.stageRightAnm:setScale(1)
     self.stageRightAnm:addTo(self.anmrightcsd)
     if self.stageright == 0 then
         self.stageRightAnm:hide()
     end
     
     self.proStage = display.newSprite(string.format("#anm-%s.png",self.have[1]))
+    self.proStage:setAnchorPoint(0.5,0)
+    self.proStage:setScale(0.8)
     self.proStage:addTo(self.prostagecsd)
     
     self.changeStageAnm = display.newSprite("#anm-0.png")
+    self.changeStageAnm:setAnchorPoint(0.5,0)
+    self.changeStageAnm:setScale(0.8)
     self.changeStageAnm:addTo(self.changestagecsd)
 end
 
