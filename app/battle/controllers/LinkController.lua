@@ -81,6 +81,8 @@ end
 --
 function LinkController:dealGame(lastPoint,newPoint,clearPoint,linePoint,clearGem,clearKey)
 
+    self.view:checkTurn(newPoint)
+    
     if LinkUtil:isTrue(linePoint) then
         local pt = self.model:getAllPointByTips(linePoint)
     end
@@ -94,8 +96,6 @@ function LinkController:dealGame(lastPoint,newPoint,clearPoint,linePoint,clearGe
     self.view:dealTurning(mark,pointLast,pointNew)
 
     self:doClearByPoint(clearPoint)
-    --    local isRunWay,wayTable = self.model:clearBaseByPoint(clearPoint)
-    --    self.view:clearBaseByTable(clearPoint,isRunWay,wayTable)
 
     local iceTable = self.model:dealIceByTable(clearPoint)
     if iceTable and #iceTable~= 0 then
@@ -133,8 +133,6 @@ function LinkController:dealBmBtnClear(clearPoint)
     if LinkUtil:isTrue(clearPoint) then
 
         self:doClearByPoint(clearPoint)
-        --        local isRunWay,wayTable = self.model:clearBaseByPoint(clearPoint)
-        --        self.view:clearBaseByTable(clearPoint,isRunWay,wayTable)
 
         local iceTable = self.model:dealIceByTable(clearPoint)
         if iceTable and #iceTable~= 0 then
@@ -290,8 +288,6 @@ function LinkController:checkAnmByClear(clearPoint)
             local result = self.model:getAnm13()
             if result then
                 self:doClearByPoint(result)
-                --                local isRunWay,wayTable = self.model:clearBaseByPoint(result)
-                --                self.view:clearBaseByTable(result,isRunWay,wayTable)
             end
         end
     end
@@ -337,8 +333,21 @@ function LinkController:checkBoss()
         if self.level%5 == 0 then
             local bossId = self.level/5
             if bossId == 1 then
-            
+                if self.delNum == LEVEL_BOSS[1].T[1] then
+                    local point,base = self.model:getBoss1(LEVEL_BOSS[1].N[1])
+                    self.view:doBoss1(point,base)
+                elseif self.delNum == LEVEL_BOSS[1].T[2] then
+                    local point,base = self.model:getBoss1(LEVEL_BOSS[1].N[2])
+                    self.view:doBoss1(point,base)
+                end
             elseif bossId == 2 then
+                if self.delNum == LEVEL_BOSS[2].T[1] then
+                    local result = self.model:getBoss2(LEVEL_BOSS[2].N[1])
+                    self.view:doBoss2(result)
+                elseif self.delNum == LEVEL_BOSS[2].T[2] then
+                    local result = self.model:getBoss2(LEVEL_BOSS[2].N[2])
+                    self.view:doBoss2(result)
+                end
             elseif bossId == 3 then
             elseif bossId == 4 then
             elseif bossId == 5 then

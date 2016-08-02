@@ -210,7 +210,7 @@ LEVEL_MSG[50] = { EXP = 100, T = {80,90},R = {100,50,1}  }
 --
 LEVEL_BOSS = {}
 LEVEL_BOSS[1] = { T = {16,30} , N = {4,8}}
-LEVEL_BOSS[2] = { T = {16,30} , N = {4,8}}
+LEVEL_BOSS[2] = { T = {6,12} , N = {4,8}}
 LEVEL_BOSS[3] = { T = {16,30} , N = {4,8}}
 LEVEL_BOSS[4] = { T = {16,30} , N = {4,8}}
 LEVEL_BOSS[5] = { T = {16,30} , N = {4,8}}

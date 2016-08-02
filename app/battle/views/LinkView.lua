@@ -42,7 +42,7 @@ function LinkView:initView(data)
             end
         end
         if baseType ~= 0 and baseType ~= TYPE_OTHER + DATA_TYPE._18 then
-            local zo = self:getZOrderByY(pos.y)
+            local zo = self:getZOrderByY(data.dataPoint[index].y)
             local block = ElementSprite:create(baseType)
                 :setPosition(pos)
                 :addTo(self.viewLayer)
@@ -101,7 +101,7 @@ function LinkView:createBaseIng(gameData)
         local baseType = gameData.dataBase[index]
 
         if baseType ~= 0 and baseType ~= TYPE_OTHER + DATA_TYPE._18 then
-            local zo = self:getZOrderByY(pos.y)
+            local zo = self:getZOrderByY(gameData.dataPoint[index].y)
             local block = ElementSprite:create(baseType)
                 :setPosition(pos)
                 :addTo(self.viewLayer)
@@ -203,7 +203,7 @@ function LinkView:_doRunWay(wayT)
             local oldtag = LinkUtil:getBaseIdByPoint(old)
             local spm = self.viewLayer:getChildByTag(newtag)
             local pos = self:getPositionByPoint(old)
-            local zo = self:getZOrderByY(pos.y)
+            local zo = self:getZOrderByY(old.y)
             spm:setPosition(pos)
             spm:setTag(oldtag)
             spm:setLocalZOrder(zo)
@@ -424,7 +424,37 @@ function LinkView:doAnm1(result)
         gsp1.sp:setSpriteFrame("sp-80.png")
         gsp2.sp:setSpriteFrame("sp-80.png")
     end
+end
 
+function LinkView:doBoss1(point,base)
+    for index ,value in ipairs(point) do
+        local pos = self:getPositionByPoint(value)
+        local baseType = base[index]
+        local zo = self:getZOrderByY(value.y)
+        local tag = LinkUtil:getBaseIdByPoint(value)
+        local block = ElementSprite:create(baseType)
+            :setPosition(pos)
+            :addTo(self.viewLayer)
+            :setTag(tag)
+            :setLocalZOrder(zo)
+    end
+end
+
+
+function LinkView:doBoss2(result)
+    for _,value in ipairs(result) do
+        local tag = LinkUtil:getBaseIdByPoint(value)
+        local sp = self.viewLayer:getChildByTag(tag)
+        sp:addTurn()
+    end
+end
+
+function LinkView:checkTurn(point)
+    if point then
+        local tag = LinkUtil:getBaseIdByPoint(point)
+        local sp = self.viewLayer:getChildByTag(tag)
+        sp:removeTurn()
+    end
 end
 
 return LinkView

@@ -1331,4 +1331,74 @@ function LinkModel:getAnm18()
     end
 end
 
+function LinkModel:getEmptyPointByBase(num)
+    local empty = {}
+    for y = 1,GRID_HEIGHT-2 do
+        for x = 1,GRID_WIDTH-2 do
+            if self.elements[y][x]:getBase() == DATA_TYPE._0 then
+                table.insert(empty,cc.p(x,y))
+            end
+        end
+    end
+    
+    local result = {}
+    
+    local lth = #empty
+    
+    for index = 1 ,num do
+        local sign = math.random(lth)
+        table.insert(result,empty[sign])
+        empty[sign] = empty[lth]
+        lth = lth - 1
+    end
+    
+    return result
+end
+
+function LinkModel:getRandBaseByNum(num)
+    local base = {}
+    for i = 1,num/2 do
+        local type = math.random(ELEMENT_TYPE._NUM)
+        table.insert(base,type)
+        table.insert(base,type)
+    end
+    
+    local lth = #base
+    
+    local result = {}
+    for index = 1,#base do
+        local sign = math.random(lth)
+        table.insert(result,base[sign])
+        base[sign] = base[lth]
+        lth = lth - 1
+    end
+    return result
+end
+
+function LinkModel:getBoss1(num)
+    local base = self:getRandBaseByNum(num)
+    local point = self:getEmptyPointByBase(num)
+    
+    for index,value in ipairs(point) do
+        self.elements[value.y][value.x]:setBase(base[index])
+    end
+    
+    return point , base
+end
+
+
+function LinkModel:getBoss2(num)
+    local data = self:getCommonBase()
+    
+    local result = {}
+    local lth = #data
+    for i = 1,num do
+        local sign = math.random(lth)
+        table.insert(result,data[sign])
+        data[sign] = data[lth]
+        lth = lth - 1
+    end
+    return result
+end
+
 return LinkModel
