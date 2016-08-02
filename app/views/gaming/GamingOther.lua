@@ -83,7 +83,7 @@ end
 function GamingOther:showRandBegin()
     self:hideAllView()
     
-    self.SingleRandBegin:show()
+    self.SingleRandBegin:show():showView()
 end
 
 function GamingOther:showLevelOver(timeCount,starNum)

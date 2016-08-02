@@ -34,7 +34,7 @@ function SingleRandBegin:btnBeginGameClick()
 end
 
 function SingleRandBegin:showView()
-    LinkUtil:setStageAnm(self,1)
+    LinkUtil:setStageAnm(self,0.8)
 end
 
 return SingleRandBegin

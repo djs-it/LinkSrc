@@ -47,7 +47,7 @@ function SingleLevelBegin:showView(levelNum)
     local startx3 = LinkUtil:getStrMinTime(LEVEL_MSG[levelNum].T[1])
     self.star2csd:setString(startx2)
     self.star3csd:setString(startx3)
-    LinkUtil:setStageAnm(self,1)    
+    LinkUtil:setStageAnm(self,0.8)    
 end
 
 

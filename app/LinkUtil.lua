@@ -106,11 +106,13 @@ function LinkUtil:initStageAnm(node)
     local stageAnm = LinkUtil:getStageAnimal()
     if stageAnm[1] ~= 0 then
         node.anmleft = display.newSprite(string.format("#anm-%s.png",stageAnm[1]))
+        node.anmleft:setAnchorPoint(0.5,0)
         node.anmleft:addTo(node.stageleftcsd)
     end
 
     if stageAnm[2] ~= 0 then
         node.anmright = display.newSprite(string.format("#anm-%s.png",stageAnm[2]))
+        node.anmright:setAnchorPoint(0.5,0)
         node.anmright:addTo(node.stagerightcsd)
     end
 end

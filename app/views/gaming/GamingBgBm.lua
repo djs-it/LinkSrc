@@ -48,7 +48,7 @@ end
 
 function GamingBgBm:showView()
     
-    LinkUtil:setStageAnm(self,1)
+    LinkUtil:setStageAnm(self,0.5)
 end
 
 return GamingBgBm
