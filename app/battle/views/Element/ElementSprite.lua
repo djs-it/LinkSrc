@@ -39,7 +39,7 @@ function ElementSprite:addEffect(type)
 end
 
 function ElementSprite:setEffect(type)
-    self.effect:setSpriteFrame(string.format("#sp-%s.png",type))
+    self.effect:setSpriteFrame(string.format("sp-%s.png",type))
 end
 
 

@@ -144,15 +144,19 @@ end
 --
 function LinkView:setSelectByPoint(lastPoint,newPoint)
     if lastPoint then
-        local lastTag = LinkUtil:getBaseIdByPoint(lastPoint)
-        local newTag = LinkUtil:getBaseIdByPoint(newPoint)
-        local lastSp = self.viewLayer:getChildByTag(lastTag)
-        local newSp = self.viewLayer:getChildByTag(newTag)
-        lastSp:unselected()
-        newSp:selected()
-        print("-----------------===")
+        if newPoint then
+            local lastTag = LinkUtil:getBaseIdByPoint(lastPoint)
+            local newTag = LinkUtil:getBaseIdByPoint(newPoint)
+            local lastSp = self.viewLayer:getChildByTag(lastTag)
+            local newSp = self.viewLayer:getChildByTag(newTag)
+            lastSp:unselected()
+            newSp:selected()
+        else
+            local lastTag = LinkUtil:getBaseIdByPoint(lastPoint)
+            local lastSp = self.viewLayer:getChildByTag(lastTag)
+            lastSp:unselected()
+        end
     elseif newPoint then
-        print("+++++++++++++===")
         local tag = LinkUtil:getBaseIdByPoint(newPoint)
         local sp = self.viewLayer:getChildByTag(tag)
         sp:selected()
@@ -463,6 +467,18 @@ function LinkView:doBoss4(result)
             local tag = LinkUtil:getBaseIdByPoint(value)
             local sp = self.viewLayer:getChildByTag(tag)
             sp:addEffect(TYPE_OTHER + DATA_TYPE._19)
+        end
+    end
+end
+
+function LinkView:doIceMsg(iceMsg)
+    if iceMsg then
+        local tag = LinkUtil:getBaseIdByPoint(iceMsg[1])
+        local sp = self.viewLayer:getChildByTag(tag)
+        if iceMsg[2] == TYPE_OTHER + DATA_TYPE._21 then
+            sp:removeEffect()
+        else
+            sp:setEffect(iceMsg[2]+1)
         end
     end
 end

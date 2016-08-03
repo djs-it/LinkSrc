@@ -54,8 +54,8 @@ function LinkController:touch(event)
                 local clearPoint = self.model:dealBmBtnClear(beganPosition)
                 self:dealBmBtnClear(clearPoint)
             else
-                local lastPoint,newPoint,clearPoint,linePoint,clearGem,clearKey= self.model:dealTouchPoint(beganPosition)
-                self:dealGame(lastPoint,newPoint,clearPoint,linePoint,clearGem,clearKey)
+                local lastPoint,newPoint,clearPoint,linePoint,clearGem,clearKey,iceMsg= self.model:dealTouchPoint(beganPosition)
+                self:dealGame(lastPoint,newPoint,clearPoint,linePoint,clearGem,clearKey,iceMsg)
             end
         else
             self:setBmBtnClear(false)
@@ -81,8 +81,13 @@ end
 -----------------------------------------
 --处理游戏逻辑
 --
-function LinkController:dealGame(lastPoint,newPoint,clearPoint,linePoint,clearGem,clearKey)
-
+function LinkController:dealGame(lastPoint,newPoint,clearPoint,linePoint,clearGem,clearKey,iceMsg)
+    if LinkUtil:isTrue(iceMsg) then
+        self.model:doIceMsg(iceMsg)
+        self.view:doIceMsg(iceMsg)
+        return
+    end
+    
     self.view:checkTurn(newPoint)
 
     if LinkUtil:isTrue(linePoint) then

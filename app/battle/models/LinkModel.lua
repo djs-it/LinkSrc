@@ -111,11 +111,20 @@ function LinkModel:dealTouchPoint(point)
                     lastPoint = self.selectPoint
                     self.selectPoint = point
                 end
+            elseif iceEffect then
+                lastPoint = self.selectPoint
+                self.selectPoint = nil
+                table.insert(iceMsg,point)
+                table.insert(iceMsg,iceEffect)
             end
         end
     else
+        local iceEffect = self:getPointIce(point)
         if self:isCanSelect(point) then
             self.selectPoint = point
+        elseif iceEffect then
+            table.insert(iceMsg,point)
+            table.insert(iceMsg,iceEffect)
         end
     end
 
@@ -124,7 +133,7 @@ function LinkModel:dealTouchPoint(point)
         clearKey = self:checkKey(clearPoint)
     end
     local sortLinePoint = self:getSortLine(linePoint)
-    return lastPoint,self.selectPoint,clearPoint,sortLinePoint,clearGem,clearKey
+    return lastPoint,self.selectPoint,clearPoint,sortLinePoint,clearGem,clearKey,iceMsg
 end
 
 
@@ -1342,18 +1351,18 @@ function LinkModel:getEmptyPointByBase(num)
             end
         end
     end
-    
+
     local result = {}
-    
+
     local lth = #empty
-    
+
     for index = 1 ,num do
         local sign = math.random(lth)
         table.insert(result,empty[sign])
         empty[sign] = empty[lth]
         lth = lth - 1
     end
-    
+
     return result
 end
 
@@ -1364,9 +1373,9 @@ function LinkModel:getRandBaseByNum(num)
         table.insert(base,type)
         table.insert(base,type)
     end
-    
+
     local lth = #base
-    
+
     local result = {}
     for index = 1,#base do
         local sign = math.random(lth)
@@ -1380,18 +1389,18 @@ end
 function LinkModel:getBoss1(num)
     local base = self:getRandBaseByNum(num)
     local point = self:getEmptyPointByBase(num)
-    
+
     for index,value in ipairs(point) do
         self.elements[value.y][value.x]:setBase(base[index])
     end
-    
+
     return point , base
 end
 
 
 function LinkModel:getBoss2(num)
     local data = self:getCommonBase()
-    
+
     local result = {}
     local lth = #data
     for i = 1,num do
@@ -1415,6 +1424,16 @@ function LinkModel:getBoss4(num)
         lth = lth - 1
     end
     return result
+end
+
+function LinkModel:doIceMsg(iceMsg)
+    if iceMsg then
+        if iceMsg[2] == TYPE_OTHER + DATA_TYPE._21 then
+            self.elements[iceMsg[1].y][iceMsg[1].x]:setEffect(DATA_TYPE._0)
+        else
+            self.elements[iceMsg[1].y][iceMsg[1].x]:setEffect(iceMsg[2]+1)
+        end
+    end
 end
 
 function LinkModel:getPointIce(point)
@@ -1466,7 +1485,7 @@ function LinkModel:getBoss8(num)
             end
         end
     end
-    
+
     local result = {}
     local lth = #data
     for i = 1,num do
