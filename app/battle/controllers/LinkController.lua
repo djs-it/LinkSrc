@@ -170,8 +170,8 @@ function LinkController:addCloudListen()
             if isDoCloud then
                 self.view:runCloud(isShowCloud,cloudPoint)
                 local data = self.model:getCloudsTable()
-            else
-                self:removeTimer(TIME_CLOUD_NAME)
+--            else
+--                self:removeTimer(TIME_CLOUD_NAME)
             end
         end
         self:addTimer(TIME_CLOUD_NAME,TIME_CLOUD_NUM,190000,call)
