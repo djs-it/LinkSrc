@@ -1,59 +1,59 @@
 local GamingWall = class("GamingWall",cc.load("mvc").ViewBase)
-GamingWall.RESOURCE_FILENAME = "gaming/gaming_wall"
+
+local WallVertical = import(".WallVertical")
+local WallHorizontal = import(".WallHorizontal")
+
 
 function GamingWall:onCreate()
-    self:get():move(0,0)
+    self:initView()
 end
 
-function GamingWall:onClick(path,node,funcName)
-    if funcName == "name" then
-        local function btnCallback(node,eventType)
-            print("name")
-        end
-        return btnCallback
-    else
-        local function btnCallback(node,eventType)
-            print("GamingWall:nnnnnnnnn")
-        end
-        return btnCallback
-    end
+function GamingWall:initView()
+    self.topWall = WallHorizontal:create(self:getApp(),"topWall")
+        :addTo(self)
+    self.bmWall = WallHorizontal:create(self:getApp(),"bmWall")
+        :addTo(self)
+    self.leftWall = WallVertical:create(self:getApp(),"leftWall")
+        :addTo(self)
+    self.rightWall = WallVertical:create(self:getApp(),"rightWall")
+        :addTo(self)
 end
 
 function GamingWall:hideWall()
     self:hide()
-    self.walltop:hide()
-    self.wallbottom:hide()
-    self.wallright:hide()
-    self.wallleft:hide()
+    self.topWall:hide()
+    self.bmWall:hide()
+    self.leftWall:hide()
+    self.rightWall:hide()
     return self
 end
 
 function GamingWall:setWallLeft(pos)
     self:show()
-    self.wallleft:show()
-    local np = cc.p(pos.x,pos.y)
-    self.wallleft:setPosition(np)
+    self.leftWall:show()
+    local np = cc.p(pos.x,pos.y+GRID_BORDER_HEIGHT)
+    self.leftWall:move(np)
 end
 
 function GamingWall:setWallRight(pos)
     self:show()
-    self.wallright:show()
-    local np = cc.p(pos.x,pos.y)
-    self.wallright:setPosition(np)
+    self.rightWall:show()
+    local np = cc.p(pos.x,pos.y+GRID_BORDER_HEIGHT)
+    self.rightWall:move(np)
 end
 
 function GamingWall:setWallTop(pos)
     self:show()
-    self.walltop:show()
-    local np = cc.p(pos.x,pos.y)
-    self.walltop:setPosition(np)
+    self.topWall:show()
+    local np = cc.p(pos.x-GRID_BORDER_WIDTH/2,pos.y)
+    self.topWall:move(np)
 end
 
 function GamingWall:setWallBm(pos)
     self:show()
-    self.wallbottom:show()
-    local np = cc.p(pos.x,pos.y)
-    self.wallbottom:setPosition(np)
+    self.bmWall:show()
+    local np = cc.p(pos.x-GRID_BORDER_WIDTH/2,pos.y)
+    self.bmWall:move(np)
 end
 
 return GamingWall

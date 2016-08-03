@@ -29,7 +29,6 @@ function GamingOther:initView()
         
     self.GamingWall = GamingWall:create(self:getApp(),LAYERS.gaming_wall)
         :addTo(self)
-        :move(display.width/2,display.height/2)
         :hideWall()
         
     self.GamingBgTop = GamingBgTop:create(self:getApp(),LAYERS.gaming_bg_top)
