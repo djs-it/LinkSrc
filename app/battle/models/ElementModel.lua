@@ -36,4 +36,5 @@ function ElementModel:getEffect()
     return self.effect
 end
 
+
 return ElementModel

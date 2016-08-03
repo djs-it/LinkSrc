@@ -16,10 +16,12 @@ end
 --data is table
 --data.base  data.magic data.effect
 --@function [parent=#src.app.battle.controllers.LinkController] initGame
-function LinkController:initGame(data)
+function LinkController:initGame(data,isLevel)
     self.anmStage = LinkUtil:getStageAnimal()
 
-    self.level = AppViews:getView(LAYERS.gaming_other):getLevelNum()
+    if isLevel then
+        self.level = AppViews:getView(LAYERS.gaming_other):getLevelNum()
+    end
     self.delNum = 0
 
     self.isCanBmClear = false
@@ -82,7 +84,7 @@ end
 function LinkController:dealGame(lastPoint,newPoint,clearPoint,linePoint,clearGem,clearKey)
 
     self.view:checkTurn(newPoint)
-    
+
     if LinkUtil:isTrue(linePoint) then
         local pt = self.model:getAllPointByTips(linePoint)
     end
@@ -239,6 +241,7 @@ function LinkController:closeCtl()
     if self.cloudTimer then
         self:removeTimer(TIME_CLOUD_NAME)
     end
+    self.level = nil
     self.view:clearView()
     self.view = nil
     self.model:clearModel()
@@ -350,6 +353,10 @@ function LinkController:checkBoss()
                 end
             elseif bossId == 3 then
             elseif bossId == 4 then
+                if self.delNum == LEVEL_BOSS[4].T[1] then
+                elseif self.delNum == LEVEL_BOSS[4].T[2] then
+                
+                end 
             elseif bossId == 5 then
                 if self.delNum == LEVEL_BOSS[5].T[1] then
                     local result = self.model:getBoss5(LEVEL_BOSS[5].N[1])

@@ -46,14 +46,14 @@ function MainScene:addGamingLevel(levelNum)
     local data = LevelManager:getData(levelNum)
     self.GamingBg:show():showView()
     AppViews:getView(LAYERS.gaming_bg_top):addGamingTimer(levelNum)
-    self.GamingCtrl:show():initGame(data)
+    self.GamingCtrl:show():initGame(data,true)
 end
 
 function MainScene:addGamingRand(randLevel)
     self.MainRoom:hide()
     local data = LevelManager:getRandGameData(randLevel)
     self.GamingBg:show():showView()
-    self.GamingCtrl:show():initGame(data)
+    self.GamingCtrl:show():initGame(data,false)
 end
 
 function MainScene:showNextLevel()

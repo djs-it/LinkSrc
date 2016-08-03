@@ -38,6 +38,10 @@ function ElementSprite:addEffect(type)
         :addTo(self)
 end
 
+function ElementSprite:setEffect(type)
+    self.effect:setSpriteFrame(string.format("#sp-%s.png",type))
+end
+
 
 function ElementSprite:removeEffect()
     if self.effect then
