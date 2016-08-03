@@ -457,6 +457,16 @@ function LinkView:checkTurn(point)
     end
 end
 
+function LinkView:doBoss4(result)
+    if result then
+        for _,value in ipairs(result) do
+            local tag = LinkUtil:getBaseIdByPoint(value)
+            local sp = self.viewLayer:getChildByTag(tag)
+            sp:addEffect(TYPE_OTHER + DATA_TYPE._19)
+        end
+    end
+end
+
 function LinkView:doBoss5(result)
     if result then
         for _,value in ipairs(result) do

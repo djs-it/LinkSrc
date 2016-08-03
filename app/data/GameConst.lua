@@ -212,7 +212,7 @@ LEVEL_BOSS = {}
 LEVEL_BOSS[1] = { T = {16,30} , N = {4,8}}
 LEVEL_BOSS[2] = { T = {6,12} , N = {4,8}}
 LEVEL_BOSS[3] = { T = {16,30} , N = {4,8}}
-LEVEL_BOSS[4] = { T = {16,30} , N = {4,8}}
+LEVEL_BOSS[4] = { T = {6,12} , N = {4,8}}
 LEVEL_BOSS[5] = { T = {6,12} , N = {4,8}}
 LEVEL_BOSS[6] = { T = {16,30} , N = {4,8}}
 LEVEL_BOSS[7] = { T = {16,30} , N = {4,8}}

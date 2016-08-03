@@ -91,9 +91,11 @@ function LinkModel:dealTouchPoint(point)
     local clearPoint = {}
     local clearGem = {}
     local clearKey = {}
+    local iceMsg = {}
 
     if self.selectPoint then
         if not LinkUtil:isEqualByPoint(self.selectPoint,point) then
+            local iceEffect = self:getPointIce(point)
             if self:isCanSelect(point) then
                 if self:getBaseTypeByPoint(point) == self:getBaseTypeByPoint(self.selectPoint) then
                     linePoint = self:getLineByPoint(self.selectPoint,point)
@@ -1408,11 +1410,19 @@ function LinkModel:getBoss4(num)
     for i = 1,num do
         local sign = math.random(lth)
         table.insert(result,data[sign])
-        self.elements[data[sign].y][data[sign].x]:setEffect(TYPE_OTHER + DATA_TYPE._21)
+        self.elements[data[sign].y][data[sign].x]:setEffect(TYPE_OTHER + DATA_TYPE._19)
         data[sign] = data[lth]
         lth = lth - 1
     end
     return result
+end
+
+function LinkModel:getPointIce(point)
+    local effect = self.elements[point.y][point.x]:getEffect()
+    if effect == TYPE_OTHER + DATA_TYPE._19 or effect == TYPE_OTHER + DATA_TYPE._20 or effect == TYPE_OTHER + DATA_TYPE._21 then
+        return effect
+    end
+    return false
 end
 
 function LinkModel:getNoEffectBase()
