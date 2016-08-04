@@ -46,23 +46,26 @@ end
 function LinkController:touch(event)
     if event.name == "began" then
         print("----began")
-        local beganPosition = self:getPointByPosition(event.x,event.y)
-        if beganPosition then
-            --            dump(beganPosition)
-            if self.isCanBmClear then
-                self:setBmBtnClear(false)
-                local clearPoint = self.model:dealBmBtnClear(beganPosition)
-                self:dealBmBtnClear(clearPoint)
+        if not self.isSwim then
+            local beganPosition = self:getPointByPosition(event.x,event.y)
+            if beganPosition then
+                --            dump(beganPosition)
+                if self.isCanBmClear then
+                    self:setBmBtnClear(false)
+                    local clearPoint = self.model:dealBmBtnClear(beganPosition)
+                    self:dealBmBtnClear(clearPoint)
+                else
+                    local lastPoint,newPoint,clearPoint,linePoint,clearGem,clearKey,iceMsg= self.model:dealTouchPoint(beganPosition)
+                    self:dealGame(lastPoint,newPoint,clearPoint,linePoint,clearGem,clearKey,iceMsg)
+                end
             else
-                local lastPoint,newPoint,clearPoint,linePoint,clearGem,clearKey,iceMsg= self.model:dealTouchPoint(beganPosition)
-                self:dealGame(lastPoint,newPoint,clearPoint,linePoint,clearGem,clearKey,iceMsg)
+                self:setBmBtnClear(false)
             end
-        else
-            self:setBmBtnClear(false)
         end
         return true
     elseif event.name == "moved" then
     elseif event.name == "ended" then
+        self:addCloudListen()
     end
 
 end
@@ -87,7 +90,7 @@ function LinkController:dealGame(lastPoint,newPoint,clearPoint,linePoint,clearGe
         self.view:doIceMsg(iceMsg)
         return
     end
-    
+
     self.view:checkTurn(newPoint)
 
     if LinkUtil:isTrue(linePoint) then
@@ -163,19 +166,21 @@ end
 -- 添加乌云监听
 --
 function LinkController:addCloudListen()
-    local isDoCloud = self.model:getShowCloud()
-    if isDoCloud then
-        local function call()
-            local isDoCloud, isShowCloud,cloudPoint= self.model:getShowCloud()
-            if isDoCloud then
-                self.view:runCloud(isShowCloud,cloudPoint)
-                local data = self.model:getCloudsTable()
---            else
---                self:removeTimer(TIME_CLOUD_NAME)
+    if not self.cloudTimer then
+        local isDoCloud = self.model:getShowCloud()
+        if isDoCloud then
+            local function call()
+                local isDoCloud, isShowCloud,cloudPoint= self.model:getShowCloud()
+                if isDoCloud then
+                    self.view:runCloud(isShowCloud,cloudPoint)
+                    local data = self.model:getCloudsTable()
+                    --            else
+                    --                self:removeTimer(TIME_CLOUD_NAME)
+                end
             end
+            self:addTimer(TIME_CLOUD_NAME,TIME_CLOUD_NUM,190000,call)
+            self.cloudTimer =  self.timers[TIME_CLOUD_NAME]
         end
-        self:addTimer(TIME_CLOUD_NAME,TIME_CLOUD_NUM,190000,call)
-        self.cloudTimer =  self.timers[TIME_CLOUD_NAME]
     end
 end
 
@@ -357,6 +362,11 @@ function LinkController:checkBoss()
                     self.view:doBoss2(result)
                 end
             elseif bossId == 3 then
+                if self.delNum == LEVEL_BOSS[3].T[1] then
+                    self:addBossCloud(LEVEL_BOSS[3].N[1])
+                elseif self.delNum == LEVEL_BOSS[3].T[2] then
+                    self:addBossCloud(LEVEL_BOSS[3].N[2])
+                end
             elseif bossId == 4 then
                 if self.delNum == LEVEL_BOSS[4].T[1] then
                     local result = self.model:getBoss4(LEVEL_BOSS[4].N[1])
@@ -364,7 +374,7 @@ function LinkController:checkBoss()
                 elseif self.delNum == LEVEL_BOSS[4].T[2] then
                     local result = self.model:getBoss4(LEVEL_BOSS[4].N[2])
                     self.view:doBoss4(result)
-                end 
+                end
             elseif bossId == 5 then
                 if self.delNum == LEVEL_BOSS[5].T[1] then
                     local result = self.model:getBoss5(LEVEL_BOSS[5].N[1])
@@ -375,20 +385,119 @@ function LinkController:checkBoss()
                 end
             elseif bossId == 6 then
             elseif bossId == 7 then
+                if self.delNum == LEVEL_BOSS[7].T[1] then
+                    self:addBossEgg(LEVEL_BOSS[7].N[1])
+                elseif self.delNum == LEVEL_BOSS[7].T[2] then
+                    self:addBossEgg(LEVEL_BOSS[7].N[2])
+                end
             elseif bossId == 8 then
                 if self.delNum == LEVEL_BOSS[8].T[1] then
                     local result = self.model:getBoss8(LEVEL_BOSS[8].N[1])
                     self.view:doBoss8(result)
+                    self:addCloudListen()
                 elseif self.delNum == LEVEL_BOSS[8].T[2] then
                     local result = self.model:getBoss8(LEVEL_BOSS[8].N[2])
                     self.view:doBoss8(result)
+                    self:addCloudListen()
                 end
             elseif bossId == 9 then
+                if self.delNum == LEVEL_BOSS[9].T[1] then
+                    self:addSwim(LEVEL_BOSS[9].N[1])
+                elseif self.delNum == LEVEL_BOSS[9].T[2] then
+                    self:addSwim(LEVEL_BOSS[9].N[2])
+                end
             elseif bossId == 10 then
-            
+                if self.delNum%10 == 0 then
+                    local num = self.delNum/10
+                    if num <= 8 then
+                        local bossId = math.random(9)
+                        self:randBoss(bossId,num)
+                    end
+                end
             end
         end
     end
+end
+
+function LinkController:randBoss(bossId,num)
+    local useNum = LEVEL_BOSS[10].N[num]
+    if bossId == 1 then
+        local point,base = self.model:getBoss1(useNum)
+        self.view:doBoss1(point,base)
+    elseif bossId == 2 then
+        local result = self.model:getBoss2(useNum)
+        self.view:doBoss2(result)
+    elseif bossId == 3 then
+        self:addBossCloud(LEVEL_BOSS[10].N[num])
+    elseif bossId == 4 then
+        local result = self.model:getBoss4(useNum)
+        self.view:doBoss4(result)
+    elseif bossId == 5 then
+        local result = self.model:getBoss5(useNum)
+        self.view:doBoss5(result)
+    elseif bossId == 6 then
+
+    elseif bossId == 7 then
+        self:addBossEgg(useNum)
+    elseif bossId == 8 then
+        local result = self.model:getBoss8(useNum)
+        self.view:doBoss8(result)
+        self:addCloudListen()
+    elseif bossId == 9 then
+        self:addSwim(useNum)
+    end
+end
+
+function LinkController:addSwim(timeNum)
+    local pos = cc.p(display.width/2,display.height/2)
+
+    self.bossSwim = display.newSprite("#boss-cloud.png")
+        :addTo(self)
+    self.bossSwim:move(pos)
+    self.bossSwim:setScale(0.1)
+    self.isSwim = true
+
+
+    local function call()
+        self.bossSwim:hide()
+        self.bossSwim:removeSelf()
+        self.bossSwim = nil
+        self.isSwim = false
+    end
+
+    ac.execute(self.bossSwim,ac.ccSeq(ac.ccScaleTo(0.1,1),cc.DelayTime:create(timeNum),ac.ccScaleTo(0.1,0.1),cc.CallFunc:create(call)))
+end
+
+function LinkController:addBossCloud(timeNum)
+    local pos1 = cc.p(display.width/2+GRID_BORDER_WIDTH/2*3,display.height/2)
+    local pos2 = cc.p(display.width/2-GRID_BORDER_WIDTH/2*3,display.height/2)
+    self.bossCloud = display.newSprite("#boss-cloud.png")
+        :addTo(self)
+    self.bossCloud:move(pos1)
+    self.bossCloud:setScale(0.1)
+
+    local function call()
+        self.bossCloud:hide()
+        self.bossCloud:removeSelf()
+        self.bossCloud = nil
+    end
+    ac.execute(self.bossCloud,ac.ccSeq(ac.ccScaleTo(0.1,1),ac.ccMoveTo(timeNum/2,pos2),ac.ccMoveTo(timeNum/2,pos1),ac.ccScaleTo(0.1,0.1),cc.CallFunc:create(call)))
+
+end
+
+function LinkController:addBossEgg(timeNum)
+    local pos = cc.p(display.width/2,display.height/2)
+    self.bossEgg = display.newSprite("#boss-egg.png")
+        :addTo(self)
+    self.bossEgg:move(pos)
+    self.bossEgg:setScale(0.1)
+    local function call()
+        self.bossEgg:hide()
+        self.bossEgg:removeSelf()
+        self.bossEgg = nil
+    end
+
+    ac.execute(self.bossEgg,ac.ccSeq(ac.ccScaleTo(0.1,1),cc.DelayTime:create(timeNum),ac.ccScaleTo(0.1,0.1),cc.CallFunc:create(call)))
 end
 
 return LinkController
