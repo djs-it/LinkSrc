@@ -38,7 +38,7 @@ function SingleGameMap:initView()
         end
         
         local star = starData[i]
-        local sign
+--        local sign
         local sign = true
 --        if i > levelNow then
 --            sign = false

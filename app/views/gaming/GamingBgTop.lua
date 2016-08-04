@@ -3,7 +3,7 @@ GamingBgTop.RESOURCE_FILENAME = "gaming/gaming_top"
 
 function GamingBgTop:onCreate()
     self:get():move(0,0)
-    
+    self:initView()
 end
 
 function GamingBgTop:onClick(path,node,funcName)
@@ -24,11 +24,11 @@ end
 function GamingBgTop:addGamingTimer(levelNum)
     self.star1:show()
     self.star2:show()
-    
+
     local ln = levelNum
     self.timeStr = nil
     self.starNum = 3
-    
+
     self.isCanTimer = true
     self.timeCount = 0
     self.toptime:setString("00:00")
@@ -61,8 +61,28 @@ end
 
 function GamingBgTop:deleGamingTimer()
     self:removeTimer(TIME_GAMING_NAME)
-    
+
     return self.starNum,self.timeCount
+end
+
+function GamingBgTop:initView()
+    self.boss = display.newSprite("#anm-1.png")
+        :addTo(self.bosscsd)
+        :setScale(0.6)
+end
+
+function GamingBgTop:showView(level)
+    if level then
+        if level%5 == 0 then
+            self.bossbedcsd:show()
+            local bossId = level/5
+            self.boss:setSpriteFrame(string.format("anm-%s.png",bossId))
+        else
+            self.bossbedcsd:hide()
+        end
+    else
+        self.bossbedcsd:hide()
+    end
 end
 
 return GamingBgTop

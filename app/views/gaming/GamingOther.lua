@@ -77,6 +77,7 @@ function GamingOther:showLevelBegin(levelNum)
     
     self.levelNum = levelNum
     self.SingleLevelBegin:show():showView(self.levelNum)
+    self.GamingBgTop:showView(self.levelNum)
 end
 
 function GamingOther:showRandBegin()
@@ -108,6 +109,29 @@ function GamingOther:initGamingBg()
     self:hideAllView()
     self.GamingBgBm:show():showView()
     self.GamingBgTop:show()
+end
+
+function GamingOther:addSwim(timeNum)
+    local pos = cc.p(display.width/2,display.height/2)
+
+    self.swimLayer = display.newLayer(cc.c3b(0,0,0))
+        :addTo(self)
+        :setOpacity(50)
+    self.bossSwim = display.newSprite("#stars.png")
+        :addTo(self.swimLayer)
+        :move(pos)
+    self.bossSwim:move(pos)
+    self.bossSwim:setScale(0.1)
+    
+    local function call()
+        self.bossSwim:hide()
+        self.bossSwim:removeSelf()
+        self.swimLayer:hide()
+        self.swimLayer:removeSelf()
+        self.swimLayer = nil
+        self.bossSwim = nil
+    end
+    ac.execute(self.bossSwim,ac.ccSeq(ac.ccScaleTo(0.1,1),ac.ccRotateTo(timeNum,180*timeNum,180*timeNum),ac.ccScaleTo(0.1,0.1),cc.CallFunc:create(call)))
 end
 
 return GamingOther

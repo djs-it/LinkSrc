@@ -449,23 +449,13 @@ function LinkController:randBoss(bossId,num)
 end
 
 function LinkController:addSwim(timeNum)
-    local pos = cc.p(display.width/2,display.height/2)
-
-    self.bossSwim = display.newSprite("#boss-cloud.png")
-        :addTo(self)
-    self.bossSwim:move(pos)
-    self.bossSwim:setScale(0.1)
+    AppViews:getView(LAYERS.gaming_other):addSwim(timeNum,self.isSwim)
     self.isSwim = true
-
-
     local function call()
-        self.bossSwim:hide()
-        self.bossSwim:removeSelf()
-        self.bossSwim = nil
         self.isSwim = false
     end
-
-    ac.execute(self.bossSwim,ac.ccSeq(ac.ccScaleTo(0.1,1),cc.DelayTime:create(timeNum),ac.ccScaleTo(0.1,0.1),cc.CallFunc:create(call)))
+    ac.execute(self,ac.ccSeq(cc.DelayTime:create(timeNum),cc.CallFunc:create(call)))
+    
 end
 
 function LinkController:addBossCloud(timeNum)
