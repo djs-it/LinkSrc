@@ -96,7 +96,12 @@ function LinkModel:dealTouchPoint(point)
     if self.selectPoint then
         if not LinkUtil:isEqualByPoint(self.selectPoint,point) then
             local iceEffect = self:getPointIce(point)
-            if self:isCanSelect(point) then
+            if iceEffect then
+                lastPoint = self.selectPoint
+                self.selectPoint = nil
+                table.insert(iceMsg,point)
+                table.insert(iceMsg,iceEffect)
+            elseif self:isCanSelect(point) then
                 if self:getBaseTypeByPoint(point) == self:getBaseTypeByPoint(self.selectPoint) then
                     linePoint = self:getLineByPoint(self.selectPoint,point)
                     if linePoint then
@@ -111,20 +116,16 @@ function LinkModel:dealTouchPoint(point)
                     lastPoint = self.selectPoint
                     self.selectPoint = point
                 end
-            elseif iceEffect then
-                lastPoint = self.selectPoint
-                self.selectPoint = nil
-                table.insert(iceMsg,point)
-                table.insert(iceMsg,iceEffect)
+
             end
         end
     else
         local iceEffect = self:getPointIce(point)
-        if self:isCanSelect(point) then
-            self.selectPoint = point
-        elseif iceEffect then
+        if iceEffect then
             table.insert(iceMsg,point)
             table.insert(iceMsg,iceEffect)
+        elseif self:isCanSelect(point) then
+            self.selectPoint = point
         end
     end
 
@@ -966,6 +967,15 @@ function LinkModel:isCanSelect(point)
         return true
             --乌云
     elseif effectType == TYPE_OTHER + DATA_TYPE._13 then
+        return true
+            --冰冻
+    elseif effectType == TYPE_OTHER + DATA_TYPE._19 then
+        return true
+            --冰冻
+    elseif effectType == TYPE_OTHER + DATA_TYPE._20 then
+        return true
+            --冰冻
+    elseif effectType == TYPE_OTHER + DATA_TYPE._21 then
         return true
             --冰块
     elseif effectType == TYPE_OTHER + DATA_TYPE._8 then

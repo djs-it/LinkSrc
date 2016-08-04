@@ -9,7 +9,8 @@ local SingleMap = import("..bmsingle.SingleMain")
 local RoomMain = import("..bmroom.RoomMain")
 local AnimalMain = import("..bmanimal.AnimalMain")
 
---local AnmHead = import("..common.AnmHead")
+local Buy = import("..mainbuy.Buy")
+
 
 function MainRoom:onCreate()
     self:initView()
@@ -64,6 +65,11 @@ function MainRoom:initView()
         :move(display.width/2,0)
         :hide()
         
+    self.Buy = Buy:create(self:getApp(),LAYERS.buy)
+        :addTo(self)
+        :move(display.width/2,display.height/2)
+        :hide()
+        
 end
 
 function MainRoom:hideAllView()
@@ -71,6 +77,7 @@ function MainRoom:hideAllView()
     self.SingleView:hide()
     self.RoomMain:hide()
     self.MainBmBtn:hide()
+    self.Buy:hide()
 end
 
 --------------------------------------------------------
@@ -105,5 +112,12 @@ function MainRoom:showRoom()
 end
 -->>>>>>>>>>>>>>
 ------------------------------------------------------
+function MainRoom:showBuy(sign)
+    if sign == 1 then
+        self.Buy:show():btnGoldClick()
+    elseif sign == 2 then
+        self.Buy:show():btnGemClick()
+    end
+end
 
 return MainRoom

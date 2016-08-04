@@ -12,11 +12,13 @@ function MainTop:onClick(path,node,funcName)
     if funcName == "btnGold" then
         local function btnCallback(node,eventType)
             print("btnGold")
+            AppViews:getView(LAYERS.main_room):showBuy(1)
         end
         return btnCallback
     elseif funcName == "btnGem" then
         local function btnCallback(node,eventType)
             print("btnGem")
+            AppViews:getView(LAYERS.main_room):showBuy(2)
         end
         return btnCallback
     elseif funcName == "btnFriend" then

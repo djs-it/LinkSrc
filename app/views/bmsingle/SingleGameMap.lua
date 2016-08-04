@@ -27,9 +27,7 @@ end
 function SingleGameMap:initView()
     local starData = LinkUtil:getLevelStar()
     local levelNow = LinkUtil:getLevelNow()
-    
     print("======levelnow"..levelNow)
-    
     for i = 1 , 50 do
         if i%5 == 0 then
             self["bn"..i] = BossBn:create(self:getApp(),"boss")

@@ -65,7 +65,6 @@ function LinkController:touch(event)
         return true
     elseif event.name == "moved" then
     elseif event.name == "ended" then
-        self:addCloudListen()
     end
 
 end
@@ -88,6 +87,7 @@ function LinkController:dealGame(lastPoint,newPoint,clearPoint,linePoint,clearGe
     if LinkUtil:isTrue(iceMsg) then
         self.model:doIceMsg(iceMsg)
         self.view:doIceMsg(iceMsg)
+        self:hideAllViewDemo()
         return
     end
 
