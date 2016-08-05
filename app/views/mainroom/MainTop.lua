@@ -29,6 +29,7 @@ function MainTop:onClick(path,node,funcName)
     elseif funcName == "btnActivity" then
         local function btnCallback(node,eventType)
             print("btnActivity")
+            AppViews:getView(LAYERS.main_room):showActivity(1)
         end
         return btnCallback
     else

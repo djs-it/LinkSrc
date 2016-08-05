@@ -317,5 +317,6 @@ SLOTER = {
     animal_stage = "animal_stage",
 
     buy = "buy",
+    activity = "activity",
 
 }

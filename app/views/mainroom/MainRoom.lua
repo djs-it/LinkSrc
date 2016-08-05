@@ -10,6 +10,7 @@ local RoomMain = import("..bmroom.RoomMain")
 local AnimalMain = import("..bmanimal.AnimalMain")
 
 local Buy = import("..mainbuy.Buy")
+local Activity = import("..mainactivity.Activity")
 
 
 function MainRoom:onCreate()
@@ -69,7 +70,11 @@ function MainRoom:initView()
         :addTo(self)
         :move(display.width/2,display.height/2)
         :hide()
-        
+    
+    self.Activity = Activity:create(self:getApp(),LAYERS.activity)
+        :addTo(self)
+        :move(display.width/2,display.height/2)
+        :hide()
 end
 
 function MainRoom:hideAllView()
@@ -78,6 +83,7 @@ function MainRoom:hideAllView()
     self.RoomMain:hide()
     self.MainBmBtn:hide()
     self.Buy:hide()
+    self.Activity:hide()
 end
 
 --------------------------------------------------------
@@ -113,10 +119,18 @@ end
 -->>>>>>>>>>>>>>
 ------------------------------------------------------
 function MainRoom:showBuy(sign)
+    self:hideAllView()
     if sign == 1 then
         self.Buy:show():btnGoldClick()
     elseif sign == 2 then
         self.Buy:show():btnGemClick()
+    end
+end
+
+function MainRoom:showActivity(sign)
+    self:hideAllView()
+    if sign == 1 then
+        self.Activity:btnActivityClick()
     end
 end
 
