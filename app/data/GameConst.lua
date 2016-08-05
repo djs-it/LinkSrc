@@ -287,6 +287,7 @@ LAYERS = {
 
     room_main = "room_main",
     animal_main= "animal_main",
+    pk_main = "pk_main",
 
     gaming_other = "gaming_other",
     gaming_ctl = "gaming_ctl",
