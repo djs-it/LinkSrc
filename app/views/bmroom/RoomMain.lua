@@ -35,7 +35,6 @@ end
 
 function RoomMain:hideView()
     AppViews:getView(LAYERS.main_room):hideAllView()
-    
 end
 
 function RoomMain:initView()
