@@ -24,6 +24,7 @@ THE SOFTWARE.
 
 --
 require("app.data.GameConst")
+require("app.data.RoomConst")
 
 LinkUtil = require("app.LinkUtil").new()
 

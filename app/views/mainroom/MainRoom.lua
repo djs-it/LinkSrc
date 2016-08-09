@@ -1,9 +1,11 @@
 local MainRoom = class("MainRoom",cc.load("mvc").ViewBase)
-MainRoom.RESOURCE_FILENAME = "mainroom/main_room"
+--MainRoom.RESOURCE_FILENAME = "mainroom/main_room"
 
 local MainTop = import(".MainTop")
 local MainBottom = import(".MainBottom")
 local MainBmBtn = import(".MainBmBtn")
+
+local Room = import("..room.Room")
 
 local SingleMap = import("..bmsingle.SingleMain")
 local RoomMain = import("..bmroom.RoomMain")
@@ -40,6 +42,10 @@ end
 
 
 function MainRoom:initView()
+    self.Room = Room:create(self:getApp(),LAYERS.room)
+        :addTo(self)
+        :move(display.width/2,display.height/2)
+        
     self.MainTop = MainTop:create(self:getApp(),LAYERS.main_top)
         :addTo(self)
         :move(display.width/2,display.height)
@@ -87,6 +93,7 @@ function MainRoom:initView()
         :addTo(self)
         :move(display.width/2,display.height/2)
         :hide()
+        
 end
 
 function MainRoom:hideAllView()

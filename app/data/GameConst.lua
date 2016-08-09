@@ -275,6 +275,7 @@ ANM_SAY[21] = "有一定几率抵抗黑白，云，眩晕和西红柿"
 --Layers
 --
 LAYERS = {
+    room = "room",
     main_room = "main_room",
     main_top = "main_top",
     main_bottom = "main_bottom",
