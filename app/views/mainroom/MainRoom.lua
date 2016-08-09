@@ -12,6 +12,7 @@ local PkMain = import("..bmpk.PkMain")
 
 local Buy = import("..mainbuy.Buy")
 local Activity = import("..mainactivity.Activity")
+local Friend = import("..mainfriend.Friend")
 
 
 function MainRoom:onCreate()
@@ -72,6 +73,11 @@ function MainRoom:initView()
         :move(display.width/2,0)
         :hide()
         
+    self.Friend = Friend:create(self:getApp(),LAYERS.friend)
+        :addTo(self)
+        :move(display.width/2,display.height)
+        :hide()
+        
     self.Buy = Buy:create(self:getApp(),LAYERS.buy)
         :addTo(self)
         :move(display.width/2,display.height/2)
@@ -89,6 +95,7 @@ function MainRoom:hideAllView()
     self.RoomMain:hide()
     self.PkMain:hide()
     self.MainBmBtn:hide()
+    self.Friend:hide()
     self.Buy:hide()
     self.Activity:hide()
 end
@@ -140,6 +147,11 @@ function MainRoom:showActivity(sign)
     if sign == 1 then
         self.Activity:btnActivityClick()
     end
+end
+
+function MainRoom:showFriend()
+    self:hideAllView()
+    self.Friend:show()
 end
 
 return MainRoom

@@ -24,6 +24,7 @@ function MainTop:onClick(path,node,funcName)
     elseif funcName == "btnFriend" then
         local function btnCallback(node,eventType)
             print("btnFriend")
+            AppViews:getView(LAYERS.main_room):showFriend()
         end
         return btnCallback
     elseif funcName == "btnActivity" then

@@ -319,5 +319,6 @@ SLOTER = {
 
     buy = "buy",
     activity = "activity",
+    friend = "friend",
 
 }
