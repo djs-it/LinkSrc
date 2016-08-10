@@ -1,5 +1,5 @@
 local MainRoom = class("MainRoom",cc.load("mvc").ViewBase)
-MainRoom.RESOURCE_FILENAME = "mainroom/main_room"
+--MainRoom.RESOURCE_FILENAME = "mainroom/main_room"
 
 local MainTop = import(".MainTop")
 local MainBottom = import(".MainBottom")
@@ -46,7 +46,7 @@ function MainRoom:initView()
     self.Room = Room:create(self:getApp(),LAYERS.room)
         :addTo(self)
         :move(display.width/2,display.height/2)
-        :hide()
+--        :hide()
         
     self.MainTop = MainTop:create(self:getApp(),LAYERS.main_top)
         :addTo(self)

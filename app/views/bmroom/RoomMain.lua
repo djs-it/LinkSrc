@@ -19,6 +19,11 @@ function RoomMain:onClick(path,node,funcName)
             self:btnFloorClick(2)
         end
         return btnCallback
+    elseif funcName == "btnEdit" then
+        local function btnCallback(node,eventType)
+            print("btnEdit")
+        end
+        return btnCallback
     elseif funcName == "btnClose" then
         local function btnCallback(node,eventType)
             print("btnClose")
