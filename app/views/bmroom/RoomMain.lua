@@ -22,6 +22,7 @@ function RoomMain:onClick(path,node,funcName)
     elseif funcName == "btnEdit" then
         local function btnCallback(node,eventType)
             print("btnEdit")
+            self:btnEditClick()
         end
         return btnCallback
     elseif funcName == "btnClose" then
@@ -67,6 +68,10 @@ function RoomMain:btnFloorClick(num)
         self.floorone:show()
         self.floortwo:hide()
     end
+end
+
+function RoomMain:btnEditClick()
+    AppViews:getView(LAYERS.main_room):editRoom()
 end
 
 return RoomMain

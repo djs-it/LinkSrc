@@ -6,7 +6,7 @@ local MainBottom = import(".MainBottom")
 local MainBmBtn = import(".MainBmBtn")
 
 local Room = import("..room.Room")
-local RoomBm = import("..room.RoomBm")
+--local RoomBm = import("..room.RoomBm")
 
 local SingleMap = import("..bmsingle.SingleMain")
 local RoomMain = import("..bmroom.RoomMain")
@@ -45,7 +45,7 @@ end
 function MainRoom:initView()
     self.Room = Room:create(self:getApp(),LAYERS.room)
         :addTo(self)
-        :move(display.width/2,display.height/2)
+--        :move(display.width/2,display.height/2)
 --        :hide()
         
     self.MainTop = MainTop:create(self:getApp(),LAYERS.main_top)
@@ -81,10 +81,10 @@ function MainRoom:initView()
         :move(display.width/2,0)
         :hide()
         
-    self.RoomBm = RoomBm:create(self:getApp(),LAYERS.room_bm)
-        :addTo(self)
-        :move(display.width/2,0)    
-        :hide()
+--    self.RoomBm = RoomBm:create(self:getApp(),LAYERS.room_bm)
+--        :addTo(self)
+--        :move(display.width/2,0)    
+--        :hide()
         
     self.Friend = Friend:create(self:getApp(),LAYERS.friend)
         :addTo(self)
@@ -109,7 +109,7 @@ function MainRoom:hideAllView()
     self.RoomMain:hide()
     self.PkMain:hide()
     self.MainBmBtn:hide()
-    self.RoomBm:hide()
+--    self.RoomBm:hide()
     self.Friend:hide()
     self.Buy:hide()
     self.Activity:hide()
@@ -167,6 +167,24 @@ end
 function MainRoom:showFriend()
     self:hideAllView()
     self.Friend:show()
+end
+
+function MainRoom:editRoom()
+    self:hideAllView()
+    
+    self.MainTop:hide()
+    self.MainBottom:hide()
+    
+    self.Room:editRoom()
+end
+
+function MainRoom:setRoom()
+    self:hideAllView()
+    
+    self.MainTop:show()
+    self.MainBottom:show()
+    
+    self.Room:setRoom()
 end
 
 return MainRoom

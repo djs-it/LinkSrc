@@ -4,25 +4,25 @@ Room1.RESOURCE_FILENAME = "room/room_1"
 function Room1:onCreate()
     self:get():move(0,0)
     self:initView()
-    self:editRoom()
 end
 
 function Room1:onClick(path,node,funcName)
     if string.find(funcName,"btnSign") then
         local function btnCallback()
             print(funcName)
+            self:hideSign()
         end
         return btnCallback
-    elseif string.find(funcName,"btnPos") then
-        local function btnCallback()
-            print(funcName)
-            self:showSign()
-        end
-        return btnCallback
+--    elseif string.find(funcName,"btnPos") then
+--        local function btnCallback()
+--            print(funcName)
+--            self:showSign()
+--        end
+--        return btnCallback
     elseif funcName == "btnRoomMask" then
         local function btnCallback()
             print("btnRoomMask11111")
-            self:hideSign()
+            self:btnRoomMaskClick()
         end
         return btnCallback
     else
@@ -33,11 +33,17 @@ function Room1:onClick(path,node,funcName)
     end
 end
 
+function Room1:btnRoomMaskClick()
+    self:showSign()
+end
+
 function Room1:initView()
     self:hideSign()
 end
 
 function Room1:showView()
+    self:showSign()
+    self:editRoom()
 end
 
 function Room1:editRoom()
@@ -46,6 +52,7 @@ end
 
 function Room1:setRoom()
     self.untouchcsd:show()
+    self:hideSign()
 end
 
 function Room1:hideSign()

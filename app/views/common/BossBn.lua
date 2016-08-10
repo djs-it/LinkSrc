@@ -37,11 +37,11 @@ function BossBn:initView(levelNum,starNum,isCan)
     if isCan then
         self.btnLevel:show()
         self.btnLevelNo:hide()
-        self.levelNum:setTextColor({r = 255, g = 255, b = 255})
+        self.levelNUM:setTextColor({r = 255, g = 255, b = 255})
     else
         self.btnLevel:hide()
         self.btnLevelNo:show()
-        self.levelNum:setTextColor({r = 103, g = 65, b = 78})
+        self.levelNUM:setTextColor({r = 103, g = 65, b = 78})
     end
 end
 
