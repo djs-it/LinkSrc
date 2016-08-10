@@ -287,6 +287,7 @@ LAYERS = {
     single_rand_begin = "single_rand_begin",
 
     room_main = "room_main",
+    room_bm = "room_bm",
     animal_main= "animal_main",
     pk_main = "pk_main",
 

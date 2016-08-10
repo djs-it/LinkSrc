@@ -6,29 +6,16 @@ function BedRoom:onCreate()
     self:initView()
 end
 
-function BedRoom:onClick(patn,node,funcName)
-    if funcName == "btnCarpet" then
+function BedRoom:onClick(path,node,funcName)
+    if string.find(funcName,"btnSign") then
         local function btnCallback()
-            print("btnCarpet")
-            self:btnCarpetClick()
+            print(funcName)
         end
         return btnCallback
-    elseif funcName == "btnBed" then
+    elseif string.find(funcName,"btnPos") then
         local function btnCallback()
-            print("btnBed")
-            self:btnBedClick()
-        end
-        return btnCallback
-    elseif funcName == "btnWindow" then
-        local function btnCallback()
-            print("btnWindow")
-            self:btnWindowClick()
-        end
-        return btnCallback
-    elseif funcName == "btnDesk" then
-        local function btnCallback()
-            print("btnDesk")
-            self:btnDeskClick()
+            print(funcName)
+            self:showSign()
         end
         return btnCallback
     elseif funcName == "btnBedMask" then
@@ -57,19 +44,47 @@ function BedRoom:showSign()
     self.firstsigncsd:show()
 end
 
-function BedRoom:btnCarpetClick()
+function BedRoom:btnSign101Click()
     self:showSign()
 end
 
-function BedRoom:btnBedClick()
+function BedRoom:btnSign102Click()
     self:showSign()
 end
 
-function BedRoom:btnWindowClick()
+function BedRoom:btnSign103Click()
     self:showSign()
 end
 
-function BedRoom:btnDeskClick()
+function BedRoom:btnSign1Click()
+    self:showSign()
+end
+
+function BedRoom:btnSign2Click()
+    self:showSign()
+end
+
+function BedRoom:btnSign3Click()
+    self:showSign()
+end
+
+function BedRoom:btnSign4Click()
+    self:showSign()
+end
+
+function BedRoom:btnPos1Click()
+    self:showSign()
+end
+
+function BedRoom:btnPos2Click()
+    self:showSign()
+end
+
+function BedRoom:btnPos3Click()
+    self:showSign()
+end
+
+function BedRoom:btnPos4Click()
     self:showSign()
 end
 
